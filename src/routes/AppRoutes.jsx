@@ -3,7 +3,7 @@ import { checklistsData } from '../Pages/checklists/data_checklists' // данн
 import MainPage from '../Pages/mainPage/MainPage' // главная страница с навигацией
 import AdminPage from '../Pages/admin/AdminPage' // панель администратора
 import Checklist from '../Pages/checklists/Checklists'
-import CreateForm from '../Pages/CreateForm'
+import CreateForm from '../Pages/formCreation/CreateForm'
 
 // статические ммашруты для основных элементов
 const mainRoutes = [

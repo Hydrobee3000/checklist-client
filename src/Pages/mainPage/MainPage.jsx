@@ -16,7 +16,7 @@ const routeList = [
 const MainPage = () => {
   return (
     <>
-      <Header mainPage>Выберите чек-лист</Header>
+      <Header mainPage>Выберите опрос</Header>
       {/* Контент страницы */}
       <div className='app__content main_page__content'>
         <nav className='nav__list'>

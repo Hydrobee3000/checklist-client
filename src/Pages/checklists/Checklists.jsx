@@ -40,30 +40,25 @@ const Checklist = ({ data }) => {
       <Header>{data.formsName}</Header>
       <div className='app__content'>
         <form onSubmit={onSubmit} className='app__content_form'>
-          {data?.blocks?.map((block, index) => {
+          {data?.elements?.map((element, index) => {
             return (
               <React.Fragment key={index}>
-                {/* каждый блок */}
-                {block?.isExist && (
+                {element?.element?.type === 'title' && (
                   <>
-                    <BlockTitle order={block?.order}>{block?.title?.text}</BlockTitle>
-                    {block?.title?.text && <BlockTitleComment>{block?.title?.remark}</BlockTitleComment>}
+                    <BlockTitle order={element?.element?.order}>{element?.title?.text}</BlockTitle>
+                    {element?.title?.text && <BlockTitleComment>{element?.title?.remark}</BlockTitleComment>}
                   </>
                 )}
 
-                {block?.questionsData.map((question, index) => {
-                  // каждый вопрос
-                  return (
-                    <QuestionRenderer
-                      key={index}
-                      questionData={question}
-                      setInputsValue={setInputsValue}
-                      inputsValue={inputsValue}
-                      isReadonly={isReadonly}
-                      today={defaultDateNow}
-                    />
-                  )
-                })}
+                {element?.element?.type === 'question' && (
+                  <QuestionRenderer
+                    questionData={element}
+                    setInputsValue={setInputsValue}
+                    inputsValue={inputsValue}
+                    isReadonly={isReadonly}
+                    today={defaultDateNow}
+                  />
+                )}
               </React.Fragment>
             )
           })}
