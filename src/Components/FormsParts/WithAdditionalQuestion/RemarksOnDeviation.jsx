@@ -1,8 +1,8 @@
 import React from 'react'
 import { OTHER } from '../../../constants/additionalIndexes' // индекс доп. ответа: 'Other'
-import saveAnswersToState from '../../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
-import Title from '../Titles/Title'
+import { Title } from '../Titles/Title'
 import TitleComment from '../Titles/TitleComment'
+import saveAnswersToState from '../../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 
 // дополнительный блок "Замечания по отклонениям"
 

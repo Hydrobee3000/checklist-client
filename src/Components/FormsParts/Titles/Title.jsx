@@ -2,7 +2,7 @@ import React from 'react'
 
 // заголовок вопроса
 
-const Title = ({ children, number = null, required = false }) => {
+export const Title = ({ children, number = null, required = false }) => {
   return (
     <p className='app__content_title'>
       {/* номер вопроса отображается, только если его передали */}
@@ -12,5 +12,3 @@ const Title = ({ children, number = null, required = false }) => {
     </p>
   )
 }
-
-export default Title

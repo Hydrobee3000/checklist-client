@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import saveAnswersToState from '../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
-import Title from './Titles/Title' // заголовок вопроса
+import { Title } from './Titles/Title' // заголовок вопроса
 import TitleComment from './Titles/TitleComment' // подзаголовок вопроса
+import saveAnswersToState from '../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 
 // вопрос с выбором одного ответа (или множесва ответов при переданном параметре multiple)
 

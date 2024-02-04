@@ -1,10 +1,10 @@
+import { OTHER } from '../../../constants/additionalIndexes' // (string) "Other"
 import { hasAtLeastOneChosenAdditionalAnswer } from '../../../utils/isChosenAdditionalAnswer' // выбран ли хотя бы один ответ на доп. вопрос
-import Title from '../Titles/Title' // заголовок вопроса
+import { Title } from '../Titles/Title' // заголовок вопроса
 import TitleComment from '../Titles/TitleComment' // комментарий вопроса
 import RadioQuestion from '../RadioQuestion'
 import BehavioralBarriers from './BehavioralBarriers' // блок доп. ответа *Поведенческие барьеры*
 import RemarksOnDeviation from './RemarksOnDeviation' // блок доп. ответа *Замечания по отклонению*
-import { OTHER } from '../../../constants/additionalIndexes' // (string) "Other"
 
 // вопрос, где при выборе ответа 'нет' - появляется доп. вопрос
 
