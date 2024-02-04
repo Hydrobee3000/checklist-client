@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { appContext, setIsSuccess, setShowModal } from '../../store/reducers/appReducer'
 import { BlockTitle, BlockTitleComment } from '../../Components/FormsParts/Titles/BlockTitle' // заголовок блока вопросов
-// import { data } from './data_checklists' // данные чеклиста
 import Header from '../../Components/Header/Header'
 import SubmitButton from '../../Components/FormsParts/Buttons/SubmitButton' // кнопка отправки формы
 import QuestionRenderer from '../../utils/QuestionsRender'
-import { appContext, setIsSuccess, setShowModal } from '../../store/reducers/appReducer'
 import defaultSetValue from '../../utils/defaultSetValue' // ф-я установки значения по-умолчанию в стейт
 import handleSubmit from '../../utils/handleSubmit' // ф-я отправки данных формы на сервер
 
@@ -12,18 +11,17 @@ import handleSubmit from '../../utils/handleSubmit' // ф-я отправки д
 
 const Checklist = ({ data }) => {
   const { dispatch } = useContext(appContext)
-
   const [inputsValue, setInputsValue] = useState([]) // все введенные в форму данные
 
   /* отправка формы */
   const [isSubmit, setIsSubmit] = useState(false) // отправлена ли форма (блокирование кнопки отправки)
   const [isFetching, setIsFetching] = useState(false) // происходит ли запрос
-  const [isReadonly, setIsReadonly] = useState(false) // включен ли режим чтения
+  const [isReadonly, setIsReadonly] = useState(false) // включен ли режим чтения (после отправки формы)
 
-  let today = new Date().toISOString().slice(0, 10) // для дефолтного значения выбора даты
+  let defaultDateNow = new Date().toISOString().slice(0, 10) // значение даты по-умолчанию
 
   useEffect(() => {
-    defaultSetValue(setInputsValue, data, today) // установка значений по-умолчанию в стейт
+    defaultSetValue(setInputsValue, data, defaultDateNow) // установка начальной даты
   }, [])
 
   // отправка формы
@@ -35,6 +33,7 @@ const Checklist = ({ data }) => {
 
     await handleSubmit(inputsValue, setIsFetching, setIsSubmit, setIsReadonly, dispatchIsSuccess, dispatchShowModal)
   }
+
   return (
     <>
       <Header>{data.formsName}</Header>
@@ -52,7 +51,6 @@ const Checklist = ({ data }) => {
                   </>
                 )}
 
-                {/**/}
                 {block?.questionsData.map((question, index) => {
                   // каждый вопрос
                   return (
@@ -62,7 +60,7 @@ const Checklist = ({ data }) => {
                       setInputsValue={setInputsValue}
                       inputsValue={inputsValue}
                       isReadonly={isReadonly}
-                      today={today}
+                      today={defaultDateNow}
                     />
                   )
                 })}
