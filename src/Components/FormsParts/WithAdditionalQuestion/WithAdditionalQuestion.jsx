@@ -19,8 +19,8 @@ const WithAdditionalQuestion = ({
   let indexName = dataQuestion.indexName // [indexName] основного вопроса(string). Пр: audioAlarm
   let indexNameDop = dataQuestionDop.indexName //  [indexName]Dop дополнительного вопроса(string). Пр: audioAlarmDop
 
-  let title = dataQuestion.title // сам вопрос
-  let titleRemark = dataQuestion?.titleRemark // комментарий к вопросу
+  let title = dataQuestion?.title?.text // сам текст вопроса
+  let titleRemark = dataQuestion?.title?.remark // пометка к вопросу
 
   let currentNumbering = dataQuestion?.order // нумерация вопроса
   let mainAnswer = inputsValue[indexName] // ответ на основной вопрос ("Да" | "Нет" | "Не требуется")

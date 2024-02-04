@@ -20,7 +20,7 @@ const QuestionRenderer = ({ questionData, setInputsValue, inputsValue, isReadonl
       )
     case 'RADIO':
       return (
-        <RadioPlusInputQuestion
+        <RadioQuestion
           dataQuestion={questionData}
           setInputsValue={setInputsValue}
           inputsValue={inputsValue}

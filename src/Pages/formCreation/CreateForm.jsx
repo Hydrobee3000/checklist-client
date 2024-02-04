@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Button, Input, Tooltip, Select } from 'antd'
 import Header from '../../Components/Header/Header'
-import { CloseOutlined, InfoCircleOutlined } from '@ant-design/icons'
+import { CloseOutlined } from '@ant-design/icons'
+import { questionsTypes } from '../checklists/data_checklists'
 
 const { Option } = Select
 
@@ -27,6 +28,7 @@ const FormBlock = ({ element, setElementTitle, setElementRemark, deleteElement, 
 
   return (
     <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
+      <h5>Заголовок</h5>
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', width: '100%' }}>
         {/* <Select style={{ width: 70, marginRight: '5px' }} defaultValue={element.order} onChange={handleOrderChange}>
           <Option value={1}>1.</Option>
@@ -70,8 +72,83 @@ const FormBlock = ({ element, setElementTitle, setElementRemark, deleteElement, 
   )
 }
 
+//
+
+const QuestionDateBlock = ({ element, setElementTitle, setElementRemark, deleteElement, setElementOrder }) => {
+  const [isRemarkInputVisible, setRemarkInputVisible] = useState(false)
+
+  const handleAddRemarkClick = () => {
+    setRemarkInputVisible(true)
+  }
+
+  const handleDeleteRemarkClick = () => {
+    setElementRemark(element.element.order, null)
+    setRemarkInputVisible(false)
+  }
+
+  const handleRemarkInputChange = (e) => {
+    setElementRemark(element.element.order, e.target.value)
+
+    setElementTitle(element.element.order, { text: element.title.text, remark: e.target.value })
+  }
+
+  const handleOrderChange = (value) => {
+    setElementOrder(element.element.order, value)
+  }
+
+  return (
+    <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
+      <h5>Вопрос с выбором даты</h5>
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', width: '100%' }}>
+        <Select style={{ width: 70, marginRight: '5px' }} defaultValue={element.order} onChange={handleOrderChange}>
+          <Option value={1}>1.</Option>
+          <Option value={2}>2.</Option>
+        </Select>
+        <div style={{ flex: 1, marginRight: '10px' }}>
+          <Input
+            allowClear
+            placeholder='Введите название вопроса'
+            value={element.title.text}
+            onChange={(e) => setElementTitle(element.element.order, { ...element.title, text: e.target.value })}
+          />
+        </div>
+        <Tooltip title='Удалить'>
+          <Button type='text' danger icon={<CloseOutlined />} onClick={() => deleteElement(element.element.order)} />
+        </Tooltip>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+        {!isRemarkInputVisible && (
+          <Tooltip title='Добавить комментарий'>
+            <Button className='ant-btn' size='small' onClick={handleAddRemarkClick}>
+              Добавить комментарий
+            </Button>
+          </Tooltip>
+        )}
+        {isRemarkInputVisible && (
+          <>
+            <Input
+              allowClear
+              placeholder='Введите комментарий'
+              onChange={handleRemarkInputChange}
+              style={{ marginRight: '10px', flex: 1 }}
+            />
+            <Tooltip title='Удалить комментарий'>
+              <Button className='ant-btn' type='text' danger icon={<CloseOutlined />} onClick={handleDeleteRemarkClick} />
+            </Tooltip>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
+
+//
+//
+//
+
 const CreateForm = () => {
   const [inputsValue, setInputsValue] = useState({ formsName: null, elements: [] })
+  console.log(inputsValue)
 
   const saveAnswersToState = (setter, key, value) => {
     setter((prevInputs) => ({
@@ -96,17 +173,6 @@ const CreateForm = () => {
     }))
   }
 
-  const setElementTitle = (order, value) => {
-    setInputsValue((prevData) => ({
-      ...prevData,
-      elements: prevData.elements.map((element) =>
-        element.element?.type === 'title' && element.element?.order === order
-          ? { ...element, title: { ...element.title, text: value } }
-          : element
-      ),
-    }))
-  }
-
   const deleteElement = (order) => {
     setInputsValue((prevData) => ({
       ...prevData,
@@ -119,14 +185,40 @@ const CreateForm = () => {
     }))
   }
 
-  const setElementRemark = (order, value) => {
+  const setElement = (order, type, update) => {
     setInputsValue((prevData) => ({
       ...prevData,
       elements: prevData.elements.map((element) =>
-        element.element?.type === 'title' && element.element?.order === order
-          ? { ...element, title: { ...element.title, remark: value } }
-          : element
+        element.element?.type === type && element.element?.order === order ? update(element) : element
       ),
+    }))
+  }
+
+  const setElementTitle = (order, value) => {
+    setElement(order, 'title', (element) => ({
+      ...element,
+      title: { ...element.title, text: value },
+    }))
+  }
+
+  const setElementRemark = (order, value) => {
+    setElement(order, 'title', (element) => ({
+      ...element,
+      title: { ...element.title, remark: value },
+    }))
+  }
+
+  const setQuestionTitle = (order, value) => {
+    setElement(order, 'question', (element) => ({
+      ...element,
+      title: value,
+    }))
+  }
+
+  const setQuestionRemark = (order, value) => {
+    setElement(order, 'question', (element) => ({
+      ...element,
+      title: { ...element.title, remark: value },
     }))
   }
 
@@ -136,6 +228,24 @@ const CreateForm = () => {
       elements: prevData.elements.map((element) =>
         element.element?.type === 'title' && element.element?.order === order ? { ...element, order: value } : element
       ),
+    }))
+  }
+
+  const onCreateBlockQuestionDate = () => {
+    const newBlock = {
+      element: { type: 'question', order: inputsValue.elements.length + 1 },
+      indexName: 'date',
+      order: null,
+      title: 'Введите дату проверки',
+      titleRemark: null,
+      type: 'date',
+      component: questionsTypes.INPUT,
+      isRequire: true,
+    }
+
+    setInputsValue((prevData) => ({
+      ...prevData,
+      elements: [...prevData.elements, newBlock],
     }))
   }
 
@@ -158,7 +268,9 @@ const CreateForm = () => {
           <Button block onClick={onCreateBlockTitle}>
             Заголовок
           </Button>
-          <Button block>Выбор даты</Button>
+          <Button block onClick={onCreateBlockQuestionDate}>
+            Выбор даты
+          </Button>
           <h5 style={{ marginTop: '10px' }}>Добавить вопрос</h5>
           <Button block>Один ответ</Button>
           <Button block>Несколько ответов</Button>
@@ -178,16 +290,28 @@ const CreateForm = () => {
             allowClear
           />
 
-          {inputsValue.elements.map((element) => (
-            <FormBlock
-              key={element.element.order}
-              element={element}
-              setElementTitle={setElementTitle}
-              setElementRemark={setElementRemark}
-              deleteElement={deleteElement}
-              setElementOrder={setElementOrder}
-            />
-          ))}
+          {inputsValue.elements.map((element) =>
+            // Проверяем тип элемента и рендерим соответствующий блок
+            element.element.type === 'title' ? (
+              <FormBlock
+                key={element.element.order}
+                element={element}
+                setElementTitle={setElementTitle}
+                setElementRemark={setElementRemark}
+                deleteElement={deleteElement}
+                setElementOrder={setElementOrder}
+              />
+            ) : element.element.type === 'question' ? (
+              <QuestionDateBlock
+                key={element.element.order}
+                element={element}
+                setElementTitle={setQuestionTitle}
+                setElementRemark={setQuestionRemark}
+                deleteElement={deleteElement}
+                setElementOrder={setElementOrder}
+              />
+            ) : null
+          )}
         </form>
       </div>
     </>

@@ -15,8 +15,8 @@ const RadioPlusInputQuestion = ({
 }) => {
   let indexName = dataQuestion?.indexName // indexName вопроса. Пр: audioAlarm
   let numbering = dataQuestion?.order // нумерация вопроса
-  let title = dataQuestion?.title // данные заголовка вопроса
-  let titleRemark = dataQuestion?.titleRemark // пометка к вопросу
+  let title = dataQuestion?.title?.text // сам текст вопроса
+  let titleRemark = dataQuestion?.title?.remark // пометка к вопросу
   let mainAnswer = inputsValue[indexName] // ответ на вопрос (основной Пр: 'рудоскоп', доп. Пр: 'рудоскоп: 3')
 
   return (

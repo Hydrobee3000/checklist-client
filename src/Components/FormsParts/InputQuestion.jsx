@@ -15,8 +15,8 @@ const InputQuestion = ({
 }) => {
   let indexName = dataQuestion?.indexName // indexName вопроса. Пр: audioAlarm
   let type = dataQuestion?.type // тип инпута (number, date ...)
-  let title = dataQuestion?.title // данные заголовка вопроса
-  let titleRemark = dataQuestion?.titleRemark // пометка к вопросу
+  let title = dataQuestion?.title?.text // данные заголовка вопроса
+  let titleRemark = dataQuestion?.title?.remark // пометка к вопросу
   let numbering = dataQuestion?.order // нумерация вопроса
 
   // если у объекта вопроса есть свойство 'placeholder' - используем значение оттуда, иначе - значение по умолчанию

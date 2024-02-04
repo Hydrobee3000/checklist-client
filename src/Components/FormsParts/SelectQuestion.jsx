@@ -12,8 +12,8 @@ export default function SelectQuestion({
   required = false, // является ли вопрос обязательным
 }) {
   let indexName = dataQuestion?.indexName // indexName вопроса. Пр: audioAlarm
-  let title = dataQuestion?.title // сам текст вопроса
-  let titleRemark = dataQuestion?.titleRemark // пометка к вопросу
+  let title = dataQuestion?.title?.text // сам текст вопроса
+  let titleRemark = dataQuestion?.title?.remark // пометка к вопросу
   let numbering = dataQuestion?.order // нумерация вопроса
 
   return (
