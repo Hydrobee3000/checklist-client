@@ -1,5 +1,5 @@
 import React from 'react'
-import handleChangeInput from '../../utils/handleChangeInput' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
+import saveAnswersToState from '../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 import Title from './Titles/Title' // заголовок вопроса
 import TitleComment from './Titles/TitleComment' // подзаголовок вопроса
 
@@ -47,7 +47,7 @@ const RadioPlusInputQuestion = ({
                     value={el.value}
                     onChange={(e) => {
                       mainAnswer = el.value
-                      handleChangeInput(setInputsValue, indexName, el.value, inputsValue)
+                      saveAnswersToState(setInputsValue, indexName, el.value, inputsValue)
                     }}
                     disabled={isReadonly}
                     required={required}
@@ -71,7 +71,7 @@ const RadioPlusInputQuestion = ({
                   }`}</TitleComment>
                   <input
                     onChange={(e) => {
-                      handleChangeInput(
+                      saveAnswersToState(
                         setInputsValue,
                         indexName,
                         `${el.value}: ${e?.target?.value}` // устанавливаем зн-е и указываем к какому ответу относится - рудоскоп: 11

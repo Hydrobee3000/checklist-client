@@ -1,20 +1,25 @@
 import { allAdditionalIndexes } from '../constants/additionalIndexes'
 
-// записывает в стейт(inputsValue) ответы на все вопросы с их indexName
+/**
+ * Сохранение в стейт(inputsValue) ответов на все вопросы с их indexName
+ *
+ * @param {Function} setInputsValue - Установка значения ответа в стейт
+ * @param {String} indexName - Отправлена ли форма
+ * @param {Event} e - Только ли для просмотра форма
+ * @param {Array} inputsValue - Cтейт;
+ * @param {String} mainQuestionIndex - Содержит indexName основного вопроса
+ *
+ * @returns {void} - Сумма двух чисел.
+ *
+ */
 
-const handleChangeInput = (
-  setInputsValue, // установить значение ответа в стейт
-  indexName, // переданный indexName вопроса (основного или дополнительного Пр.: audioAlarm || audioAlarmDop)
-  e, // само введенное или переданное значение
-  inputsValue = null, // стейт; объект со всеми ответами с их indexName
-  mainQuestionIndex = '' // (string) Пример: 'audioAlarm' (передаётся !только при ответе на Дополнительный вопрос)
-) => {
+const saveAnswersToState = (setInputsValue, indexName, e, inputsValue = null, mainQuestionIndex = '') => {
   /* Oсновной вопрос */
 
   if (!mainQuestionIndex) {
     // установка значения ответа на основной вопрос в стейт. Пример: { audioAlarm: 'Не требуется' }
     setInputsValue((prev) => ({
-      ...prev, // копируем предыдущие значения ответов
+      ...prev,
       [indexName]: e?.target?.value ? e.target.value : e, // добавляем новое значение ответа к предыдущим
     }))
 
@@ -33,4 +38,4 @@ const handleChangeInput = (
   }
 }
 
-export default handleChangeInput
+export default saveAnswersToState

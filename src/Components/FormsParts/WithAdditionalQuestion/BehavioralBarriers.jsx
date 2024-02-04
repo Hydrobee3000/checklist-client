@@ -1,4 +1,4 @@
-import handleChangeInput from '../../../utils/handleChangeInput' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
+import saveAnswersToState from '../../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 
 // блок "Поведенческие барьеры" в дополнительных вопросах
 
@@ -21,7 +21,7 @@ const BehavioralBarriers = ({
           value={checkboxDop.name}
           onChange={(e) => {
             // если чекбокс нажат - передадим значение этого ответа
-            handleChangeInput(
+            saveAnswersToState(
               setInputsValue,
               checkboxDop.name,
               e.target.checked ? checkboxDop.value : null,

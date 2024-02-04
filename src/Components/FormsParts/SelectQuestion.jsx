@@ -1,5 +1,5 @@
 import React from 'react'
-import handleChangeInput from '../../utils/handleChangeInput' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
+import saveAnswersToState from '../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 import Title from './Titles/Title' // заголовок вопроса
 import TitleComment from './Titles/TitleComment' // подзаголовок вопроса
 
@@ -31,7 +31,7 @@ export default function SelectQuestion({
         form={form}
         disabled={isReadonly}
         required={required}
-        onChange={(e) => handleChangeInput(setInputsValue, indexName, e.target.value)}
+        onChange={(e) => saveAnswersToState(setInputsValue, indexName, e.target.value)}
       >
         {/* Вариант по умолчанию (видимый текст) */}
         <option value='' disabled selected>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import handleChangeInput from '../../utils/handleChangeInput' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
+import saveAnswersToState from '../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 import Title from './Titles/Title' // заголовок вопроса
 import TitleComment from './Titles/TitleComment' // подзаголовок вопроса
 
@@ -46,14 +46,14 @@ const RadioQuestion = ({
       })
     } else {
       // Одиночный выбор
-      handleChangeInput(setInputsValue, indexName, value, inputsValue)
+      saveAnswersToState(setInputsValue, indexName, value, inputsValue)
     }
   }
 
   useEffect(() => {
     if (multiple) {
       // отправка в стейт актуальных выбранных ответов
-      handleChangeInput(setInputsValue, indexName, selectedMultipleValues, inputsValue)
+      saveAnswersToState(setInputsValue, indexName, selectedMultipleValues, inputsValue)
     }
   }, [selectedMultipleValues])
 

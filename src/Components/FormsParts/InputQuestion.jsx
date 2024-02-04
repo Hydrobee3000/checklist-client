@@ -1,5 +1,5 @@
 import React from 'react'
-import handleChangeInput from '../../utils/handleChangeInput' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
+import saveAnswersToState from '../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 import Title from './Titles/Title' // заголовок вопроса
 import TitleComment from './Titles/TitleComment' // подзаголовок вопроса
 import { setPlaceholder } from '../../utils/setPlaceholder' // настройка надписи внутри поля ввода
@@ -35,7 +35,7 @@ const InputQuestion = ({
         {/* поле ввода ответа */}
         <input
           onChange={(e) => {
-            handleChangeInput(setInputsValue, indexName, e)
+            saveAnswersToState(setInputsValue, indexName, e)
           }}
           className='app__content_input'
           placeholder={placeholder}
@@ -62,7 +62,7 @@ const InputQuestion = ({
           className='app__content_input'
           style={{ resize: 'none' }}
           onChange={(e) => {
-            handleChangeInput(setInputsValue, indexName, e)
+            saveAnswersToState(setInputsValue, indexName, e)
           }}
           rows='6'
           placeholder='Введите значение'

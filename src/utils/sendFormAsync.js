@@ -12,6 +12,7 @@ import { requestsBroadcast } from './serviceWorkerMessages' // канал для
  * @param {Function} setIsReadonly - Только ли для просмотра форма
  * @param {Function} setIsSuccess - Успешный ли запрос (dispatch в context)
  * @param {Function} setShowModal - Отобразить ли модальное окно (dispatch в context)
+ *
  * @returns {void} - Сумма двух чисел.
  *
  */

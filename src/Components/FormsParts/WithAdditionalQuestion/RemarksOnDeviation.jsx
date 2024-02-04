@@ -1,6 +1,6 @@
 import React from 'react'
 import { OTHER } from '../../../constants/additionalIndexes' // индекс доп. ответа: 'Other'
-import handleChangeInput from '../../../utils/handleChangeInput' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
+import saveAnswersToState from '../../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 import Title from '../Titles/Title'
 import TitleComment from '../Titles/TitleComment'
 
@@ -32,13 +32,7 @@ const RemarksOnDeviation = ({
         className='app__content_input'
         style={{ resize: 'none', width: '100%' }}
         onChange={(e) => {
-          handleChangeInput(
-            setInputsValue,
-            `${indexName}${OTHER}`,
-            e,
-            inputsValue,
-            indexName
-          )
+          saveAnswersToState(setInputsValue, `${indexName}${OTHER}`, e, inputsValue, indexName)
         }}
         rows='3'
         placeholder='поле для ввода вашего замечания'
