@@ -3,14 +3,7 @@ import { requestsBroadcast } from './serviceWorkerMessages' // канал для
 
 // отправка заполненной формы
 
-const handleSubmit = async (
-  inputsValue,
-  setIsFetching,
-  setIsSubmit,
-  setIsReadonly,
-  setIsSuccess,
-  setShowModal
-) => {
+const sendFormAsync = async (inputsValue, setIsFetching, setIsSubmit, setIsReadonly, setIsSuccess, setShowModal) => {
   inputsValue['complTime'] = new Date().toISOString() // добавление поля complTime в объект inputsValue
 
   setIsFetching(true) // начало запроса на сервер
@@ -23,7 +16,7 @@ const handleSubmit = async (
   })
 
   await checkAPI
-    .postData(inputsValue) //отправка данных на сервер
+    .postData(inputsValue) // отправка данных на сервер
     .then(() => {
       setIsSuccess(true) // запрос выполнен успешно
     })
@@ -38,4 +31,4 @@ const handleSubmit = async (
     })
 }
 
-export default handleSubmit
+export default sendFormAsync

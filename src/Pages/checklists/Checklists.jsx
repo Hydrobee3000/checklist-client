@@ -5,7 +5,7 @@ import Header from '../../Components/Header/Header'
 import SubmitButton from '../../Components/FormsParts/Buttons/SubmitButton' // кнопка отправки формы
 import QuestionRenderer from '../../utils/QuestionsRender'
 import defaultSetValue from '../../utils/defaultSetValue' // ф-я установки значения по-умолчанию в стейт
-import handleSubmit from '../../utils/handleSubmit' // ф-я отправки данных формы на сервер
+import sendFormAsync from '../../utils/sendFormAsync' // ф-я отправки данных формы на сервер
 
 //
 
@@ -25,21 +25,21 @@ const Checklist = ({ data }) => {
   }, [])
 
   // отправка формы
-  const submit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
 
     const dispatchIsSuccess = (value) => dispatch(setIsSuccess(value))
     const dispatchShowModal = (value) => dispatch(setShowModal(value))
 
-    await handleSubmit(inputsValue, setIsFetching, setIsSubmit, setIsReadonly, dispatchIsSuccess, dispatchShowModal)
+    // отправка на сервер + информация для service-worker
+    await sendFormAsync(inputsValue, setIsFetching, setIsSubmit, setIsReadonly, dispatchIsSuccess, dispatchShowModal)
   }
 
   return (
     <>
       <Header>{data.formsName}</Header>
-      {/* {data[0].blocks[0].title.text} */}
       <div className='app__content'>
-        <form onSubmit={submit} className='app__content_form'>
+        <form onSubmit={onSubmit} className='app__content_form'>
           {data?.blocks?.map((block, index) => {
             return (
               <React.Fragment key={index}>
