@@ -1,7 +1,6 @@
 import React from 'react'
 import { OTHER } from '../../../constants/additionalIndexes' // индекс доп. ответа: 'Other'
-import { Title } from '../Titles/Title'
-import TitleComment from '../Titles/TitleComment'
+import { Title, TitleRemark } from '../Titles/Title' // заголовок/подзаголовок вопроса
 import saveAnswersToState from '../../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 
 // дополнительный блок "Замечания по отклонениям"
@@ -24,7 +23,7 @@ const RemarksOnDeviation = ({
         Замечания по отклонению
       </Title>
       {/* если в json не указан комментарий (remark) - отобразим дефолтное значение, иначе - его значение */}
-      <TitleComment>{blockComment ?? null}</TitleComment>
+      <TitleRemark>{blockComment ?? null}</TitleRemark>
 
       {/* поле ввода */}
       <textarea

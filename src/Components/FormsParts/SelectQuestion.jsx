@@ -1,6 +1,5 @@
 import React from 'react'
-import { Title } from './Titles/Title' // заголовок вопроса
-import TitleComment from './Titles/TitleComment' // подзаголовок вопроса
+import { Title, TitleRemark } from './Titles/Title' // заголовок/подзаголовок вопроса
 import saveAnswersToState from '../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 
 // вопрос с выпадающим списком
@@ -13,16 +12,16 @@ export default function SelectQuestion({
   required = false, // является ли вопрос обязательным
 }) {
   let indexName = dataQuestion?.indexName // indexName вопроса. Пр: audioAlarm
-  let questionTitle = dataQuestion?.title // сам текст вопроса
-  let questionComment = dataQuestion?.titleRemark // пометка к вопросу
+  let title = dataQuestion?.title // сам текст вопроса
+  let titleRemark = dataQuestion?.titleRemark // пометка к вопросу
   let numbering = dataQuestion?.order // нумерация вопроса
 
   return (
     <>
       <Title number={numbering} required={required}>
-        {questionTitle}
+        {title}
       </Title>
-      <TitleComment>{questionComment}</TitleComment>
+      {title && <TitleRemark>{titleRemark}</TitleRemark>}
 
       {/* выбор варианта ответа */}
       <select

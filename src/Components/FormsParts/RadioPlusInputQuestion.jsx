@@ -1,6 +1,5 @@
 import React from 'react'
-import { Title } from './Titles/Title' // заголовок вопроса
-import TitleComment from './Titles/TitleComment' // подзаголовок вопроса
+import { Title, TitleRemark } from './Titles/Title' // заголовок/подзаголовок вопроса
 import saveAnswersToState from '../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 
 // после выбора ответа - появляется инпут для ввода числа (номера локации)
@@ -16,8 +15,8 @@ const RadioPlusInputQuestion = ({
 }) => {
   let indexName = dataQuestion?.indexName // indexName вопроса. Пр: audioAlarm
   let numbering = dataQuestion?.order // нумерация вопроса
-  let questionTitle = dataQuestion?.title // данные заголовка вопроса
-  let questionComment = dataQuestion?.titleRemark // пометка к вопросу
+  let title = dataQuestion?.title // данные заголовка вопроса
+  let titleRemark = dataQuestion?.titleRemark // пометка к вопросу
   let mainAnswer = inputsValue[indexName] // ответ на вопрос (основной Пр: 'рудоскоп', доп. Пр: 'рудоскоп: 3')
 
   return (
@@ -26,9 +25,9 @@ const RadioPlusInputQuestion = ({
         // отобразим заголовок и комментарий - только если у вопроса нет дополнительных вопросов
         <>
           <Title number={numbering} required={required}>
-            {questionTitle}
+            {title}
           </Title>
-          <TitleComment>{questionComment}</TitleComment>
+          {title && <TitleRemark>{titleRemark}</TitleRemark>}
         </>
       ) : null}
 
@@ -66,9 +65,9 @@ const RadioPlusInputQuestion = ({
               {(mainAnswer === el.value && el.additionalInput === true) ||
               (mainAnswer?.startsWith(el.value) && el.additionalInput === true) ? (
                 <React.Fragment key={el.value}>
-                  <TitleComment>{`Введите название ${el?.value}${
+                  <TitleRemark>{`Введите название ${el?.value}${
                     el?.nounDeclension ?? '' // добавляет окончание, если оно передано
-                  }`}</TitleComment>
+                  }`}</TitleRemark>
                   <input
                     onChange={(e) => {
                       saveAnswersToState(

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Title } from './Titles/Title' // заголовок вопроса
-import TitleComment from './Titles/TitleComment' // подзаголовок вопроса
+import { Title, TitleRemark } from './Titles/Title' // заголовок/подзаголовок вопроса
 import saveAnswersToState from '../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 
 // вопрос с выбором одного ответа (или множесва ответов при переданном параметре multiple)
@@ -15,8 +14,8 @@ const RadioQuestion = ({
   withAddition = false, // является ли вопрос составным? (с доп. вопросами)
 }) => {
   let indexName = dataQuestion?.indexName // indexName вопроса. Пр: audioAlarm
-  let questionTitle = dataQuestion?.title // данные заголовка вопроса
-  let questionComment = dataQuestion?.titleRemark // пометка к вопросу
+  let title = dataQuestion?.title // данные заголовка вопроса
+  let titleRemark = dataQuestion?.titleRemark // пометка к вопросу
   let numbering = dataQuestion?.order // нумерация вопроса
 
   const [selectedMultipleValues, setSelectedMultipleValues] = useState('') // (multiple) состояние для множественных выборов основного ответа
@@ -63,9 +62,9 @@ const RadioQuestion = ({
       {withAddition === false ? (
         <>
           <Title number={numbering} required={required}>
-            {questionTitle}
+            {title}
           </Title>
-          <TitleComment>{questionComment}</TitleComment>
+          {title && <TitleRemark>{titleRemark}</TitleRemark>}
         </>
       ) : null}
 

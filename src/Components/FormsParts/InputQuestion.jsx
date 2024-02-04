@@ -1,7 +1,6 @@
 import React from 'react'
 import { setPlaceholder } from '../../utils/setPlaceholder' // настройка надписи внутри поля ввода
-import { Title } from './Titles/Title' // заголовок вопроса
-import TitleComment from './Titles/TitleComment' // подзаголовок вопроса
+import { Title, TitleRemark } from './Titles/Title' // заголовок/подзаголовок вопроса
 import saveAnswersToState from '../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 
 // вопрос с полем ввода (текста/числа/даты) для ответа
@@ -16,8 +15,8 @@ const InputQuestion = ({
 }) => {
   let indexName = dataQuestion?.indexName // indexName вопроса. Пр: audioAlarm
   let type = dataQuestion?.type // тип инпута (number, date ...)
-  let questionTitle = dataQuestion?.title // данные заголовка вопроса
-  let questionComment = dataQuestion?.titleRemark // пометка к вопросу
+  let title = dataQuestion?.title // данные заголовка вопроса
+  let titleRemark = dataQuestion?.titleRemark // пометка к вопросу
   let numbering = dataQuestion?.order // нумерация вопроса
 
   // если у объекта вопроса есть свойство 'placeholder' - используем значение оттуда, иначе - значение по умолчанию
@@ -28,9 +27,9 @@ const InputQuestion = ({
     return (
       <>
         <Title number={numbering} required={required}>
-          {questionTitle}
+          {title}
         </Title>
-        <TitleComment>{questionComment}</TitleComment>
+        {title && <TitleRemark>{titleRemark}</TitleRemark>}
 
         {/* поле ввода ответа */}
         <input
@@ -53,9 +52,9 @@ const InputQuestion = ({
     return (
       <>
         <Title number={numbering} required={required}>
-          {questionTitle}
+          {title}
         </Title>
-        <TitleComment>{questionComment}</TitleComment>
+        {title && <TitleRemark>{titleRemark}</TitleRemark>}
 
         {/* поле ввода ответа */}
         <textarea

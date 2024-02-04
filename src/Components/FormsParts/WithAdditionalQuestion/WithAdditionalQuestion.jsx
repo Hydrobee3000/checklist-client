@@ -1,7 +1,6 @@
 import { OTHER } from '../../../constants/additionalIndexes' // (string) "Other"
 import { hasAtLeastOneChosenAdditionalAnswer } from '../../../utils/isChosenAdditionalAnswer' // выбран ли хотя бы один ответ на доп. вопрос
-import { Title } from '../Titles/Title' // заголовок вопроса
-import TitleComment from '../Titles/TitleComment' // комментарий вопроса
+import { Title, TitleRemark } from '../Titles/Title' // заголовок/подзаголовок вопроса
 import RadioQuestion from '../RadioQuestion'
 import BehavioralBarriers from './BehavioralBarriers' // блок доп. ответа *Поведенческие барьеры*
 import RemarksOnDeviation from './RemarksOnDeviation' // блок доп. ответа *Замечания по отклонению*
@@ -20,8 +19,8 @@ const WithAdditionalQuestion = ({
   let indexName = dataQuestion.indexName // [indexName] основного вопроса(string). Пр: audioAlarm
   let indexNameDop = dataQuestionDop.indexName //  [indexName]Dop дополнительного вопроса(string). Пр: audioAlarmDop
 
-  let questionTitle = dataQuestion.title // сам вопрос
-  let questionComment = dataQuestion?.titleRemark // комментарий к вопросу
+  let title = dataQuestion.title // сам вопрос
+  let titleRemark = dataQuestion?.titleRemark // комментарий к вопросу
 
   let currentNumbering = dataQuestion?.order // нумерация вопроса
   let mainAnswer = inputsValue[indexName] // ответ на основной вопрос ("Да" | "Нет" | "Не требуется")
@@ -29,9 +28,9 @@ const WithAdditionalQuestion = ({
   return (
     <>
       <Title number={currentNumbering} required>
-        {questionTitle}
+        {title}
       </Title>
-      <TitleComment>{questionComment}</TitleComment>
+      {title && <TitleRemark>{titleRemark}</TitleRemark>}
 
       {/* основной вопрос */}
       <RadioQuestion
