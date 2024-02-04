@@ -3,12 +3,14 @@ import { checklistsData } from '../Pages/checklists/data_checklists' // данн
 import MainPage from '../Pages/mainPage/MainPage' // главная страница с навигацией
 import AdminPage from '../Pages/admin/AdminPage' // панель администратора
 import Checklist from '../Pages/checklists/Checklists'
+import CreateForm from '../Pages/CreateForm'
 
 // статические ммашруты для основных элементов
 const mainRoutes = [
   { path: '/', component: <MainPage /> },
   { path: '*', component: <MainPage /> },
   { path: '/adm', component: <AdminPage /> },
+  { path: '/create', component: <CreateForm /> },
 ]
 
 // динамические маршруты с отображением чеклистов

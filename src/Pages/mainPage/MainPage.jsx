@@ -1,15 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { checklistsData } from '../checklists/data_checklists'
 import Header from './../../Components/Header/Header' // шапка странциы
 import '../../App.css' // стили
-import { checklistsData } from '../checklists/data_checklists'
 
 // данные страниц(роутов)
 const routeList = [
   //{ route: '/adm', title: 'Админка' },
-
-  //{ route: '/yag1', title: 'ЯГОК ГПУ 1' },
-  // { route: '/yag2', title: 'Внесение несоответствий' },
+  { route: '/create', title: 'Создать чеклист' },
   { route: '/checklist', title: 'Тестировочная форма' },
 ]
 
@@ -22,6 +20,10 @@ const MainPage = () => {
       {/* Контент страницы */}
       <div className='app__content main_page__content'>
         <nav className='nav__list'>
+          <Link className='nav__link app__content_input' key={'/create'} to={'/create'}>
+            Создать чеклист
+          </Link>
+
           {checklistsData.map((checklist) => {
             return (
               <Link className='nav__link app__content_input' key={checklist.id} to={`${checklist.id}`}>
