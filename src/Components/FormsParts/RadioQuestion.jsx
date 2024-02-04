@@ -15,9 +15,9 @@ const RadioQuestion = ({
   withAddition = false, // является ли вопрос составным? (с доп. вопросами)
 }) => {
   let indexName = dataQuestion?.indexName // indexName вопроса. Пр: audioAlarm
-  let questionTitle = dataQuestion?.question // данные заголовка вопроса
-  let questionComment = dataQuestion?.questionRemark // пометка к вопросу
-  let numbering = dataQuestion?.numbering // нумерация вопроса
+  let questionTitle = dataQuestion?.title // данные заголовка вопроса
+  let questionComment = dataQuestion?.titleRemark // пометка к вопросу
+  let numbering = dataQuestion?.order // нумерация вопроса
 
   const [selectedMultipleValues, setSelectedMultipleValues] = useState('') // (multiple) состояние для множественных выборов основного ответа
 

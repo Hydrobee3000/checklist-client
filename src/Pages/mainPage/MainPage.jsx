@@ -8,8 +8,8 @@ const routeList = [
   //{ route: '/adm', title: 'Админка' },
 
   //{ route: '/yag1', title: 'ЯГОК ГПУ 1' },
-  { route: '/yag2', title: 'Внесение несоответствий' },
-  { route: '/yag43', title: 'ЯГОК УЭСО заколооборочник' },
+  // { route: '/yag2', title: 'Внесение несоответствий' },
+  { route: '/checklist', title: 'Тестировочная форма' },
 ]
 
 // главная страница с навигацией
@@ -24,7 +24,7 @@ const MainPage = () => {
         <nav className='nav__list'>
           {routeList.map((item, i) => {
             return (
-              <Link className='nav__link app__content_input' key={item.route} to={item.route}>
+              <Link className='nav__link app__content_input' key={i} to={item.route}>
                 {item.title}
               </Link>
             )

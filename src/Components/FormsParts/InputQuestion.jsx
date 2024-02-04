@@ -14,11 +14,11 @@ const InputQuestion = ({
   isReadonly = false, // включен ли режим чтения? -включается после отправки формы
   required = false, // является ли вопрос обязательным
 }) => {
-  let indexName = dataQuestion.indexName // indexName вопроса. Пр: audioAlarm
-  let type = dataQuestion.type // тип инпута (number, date ...)
-  let questionTitle = dataQuestion.question // данные заголовка вопроса
-  let questionComment = dataQuestion?.questionRemark // пометка к вопросу
-  let numbering = dataQuestion?.numbering // нумерация вопроса
+  let indexName = dataQuestion?.indexName // indexName вопроса. Пр: audioAlarm
+  let type = dataQuestion?.type // тип инпута (number, date ...)
+  let questionTitle = dataQuestion?.title // данные заголовка вопроса
+  let questionComment = dataQuestion?.titleRemark // пометка к вопросу
+  let numbering = dataQuestion?.order // нумерация вопроса
 
   // если у объекта вопроса есть свойство 'placeholder' - используем значение оттуда, иначе - значение по умолчанию
   let placeholder = setPlaceholder(dataQuestion)

@@ -13,16 +13,17 @@ const WithAdditionalQuestion = ({
   setInputsValue, // функция установки значений ответов в стейт
   inputsValue, // введенные значения
   isReadonly = false, // включен ли режим чтения? -включается после отправки формы
+  required = false,
 }) => {
   let dataQuestionDop = dataQuestion.additionalQuestion // данные дополнительного вопроса
 
   let indexName = dataQuestion.indexName // [indexName] основного вопроса(string). Пр: audioAlarm
   let indexNameDop = dataQuestionDop.indexName //  [indexName]Dop дополнительного вопроса(string). Пр: audioAlarmDop
 
-  let questionTitle = dataQuestion.question // сам вопрос
-  let questionComment = dataQuestion?.questionRemark // комментарий к вопросу
+  let questionTitle = dataQuestion.title // сам вопрос
+  let questionComment = dataQuestion?.titleRemark // комментарий к вопросу
 
-  let currentNumbering = dataQuestion?.numbering // нумерация вопроса
+  let currentNumbering = dataQuestion?.order // нумерация вопроса
   let mainAnswer = inputsValue[indexName] // ответ на основной вопрос ("Да" | "Нет" | "Не требуется")
 
   return (

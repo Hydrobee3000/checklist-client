@@ -13,9 +13,9 @@ export default function SelectQuestion({
   required = false, // является ли вопрос обязательным
 }) {
   let indexName = dataQuestion?.indexName // indexName вопроса. Пр: audioAlarm
-  let questionTitle = dataQuestion?.question // сам текст вопроса
-  let questionComment = dataQuestion?.questionRemark // пометка к вопросу
-  let numbering = dataQuestion?.numbering // нумерация вопроса
+  let questionTitle = dataQuestion?.title // сам текст вопроса
+  let questionComment = dataQuestion?.titleRemark // пометка к вопросу
+  let numbering = dataQuestion?.order // нумерация вопроса
 
   return (
     <>
@@ -31,7 +31,8 @@ export default function SelectQuestion({
         form={form}
         disabled={isReadonly}
         required={required}
-        onChange={(e) => handleChangeInput(setInputsValue, indexName, e.target.value)}>
+        onChange={(e) => handleChangeInput(setInputsValue, indexName, e.target.value)}
+      >
         {/* Вариант по умолчанию (видимый текст) */}
         <option value='' disabled selected>
           Выберите из списка

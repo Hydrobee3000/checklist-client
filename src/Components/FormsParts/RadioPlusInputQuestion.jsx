@@ -15,10 +15,10 @@ const RadioPlusInputQuestion = ({
   inputType,
 }) => {
   let indexName = dataQuestion?.indexName // indexName вопроса. Пр: audioAlarm
-  let questionTitle = dataQuestion?.question // данные заголовка вопроса
-  let questionComment = dataQuestion?.questionRemark // пометка к вопросу
+  let numbering = dataQuestion?.order // нумерация вопроса
+  let questionTitle = dataQuestion?.title // данные заголовка вопроса
+  let questionComment = dataQuestion?.titleRemark // пометка к вопросу
   let mainAnswer = inputsValue[indexName] // ответ на вопрос (основной Пр: 'рудоскоп', доп. Пр: 'рудоскоп: 3')
-  let numbering = dataQuestion?.numbering // нумерация вопроса
 
   return (
     <>
@@ -35,7 +35,7 @@ const RadioPlusInputQuestion = ({
       <div className='app__content_radio'>
         {/* Отображаем варианты ответов (радио кнопки)  */}
 
-        {dataQuestion.radio.map((el) => {
+        {dataQuestion?.radio.map((el) => {
           return (
             <React.Fragment key={el.value}>
               <div className='app__content_radio-value'>
@@ -79,9 +79,7 @@ const RadioPlusInputQuestion = ({
                     }}
                     className='app__content_input'
                     style={{ width: '50%' }}
-                    placeholder={`введите название ${el?.value}${
-                      el?.nounDeclension ?? ''
-                    }`}
+                    placeholder={`введите название ${el?.value}${el?.nounDeclension ?? ''}`}
                     type={inputType || 'number'}
                     min='0'
                     disabled={isReadonly}
