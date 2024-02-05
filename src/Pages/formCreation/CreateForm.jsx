@@ -74,7 +74,7 @@ const FormBlock = ({ element, setElementTitle, setElementRemark, deleteElement, 
 
 //
 
-const QuestionDateBlock = ({ element, setElementTitle, setElementRemark, deleteElement, setElementOrder }) => {
+const QuestionInputBlock = ({ element, setElementTitle, setElementRemark, deleteElement, setElementOrder }) => {
   const [isRemarkInputVisible, setRemarkInputVisible] = useState(false)
 
   const handleAddRemarkClick = () => {
@@ -96,9 +96,29 @@ const QuestionDateBlock = ({ element, setElementTitle, setElementRemark, deleteE
     setElementOrder(element.element.order, value)
   }
 
+  let title = ''
+
+  switch (element.type) {
+    case 'date':
+      title = 'Вопрос с выбором даты'
+      break
+
+    case 'text':
+      title = 'Вопрос с текстовым ответом'
+      break
+
+    case 'number':
+      title = 'Вопрос с числовым ответом'
+      break
+
+    default:
+      title = 'Вопрос'
+      break
+  }
+
   return (
     <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
-      <h5>Вопрос с выбором даты</h5>
+      <h5>{title}</h5>
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', width: '100%' }}>
         <Select style={{ width: 70, marginRight: '5px' }} defaultValue={element.order} onChange={handleOrderChange}>
           <Option value={1}>1.</Option>
@@ -231,14 +251,14 @@ const CreateForm = () => {
     }))
   }
 
-  const onCreateBlockQuestionDate = () => {
+  const onCreateBlockInputQuestion = (type) => {
     const newBlock = {
       element: { type: 'question', order: inputsValue.elements.length + 1 },
-      indexName: 'date',
+      indexName: type,
       order: null,
-      title: 'Введите дату проверки',
+      title: '',
       titleRemark: null,
-      type: 'date',
+      type: type,
       component: questionsTypes.INPUT,
       isRequire: true,
     }
@@ -264,19 +284,24 @@ const CreateForm = () => {
             marginRight: '15px',
           }}
         >
-          <h5>Добавить элемент</h5>
+          <h5 style={{ marginTop: '10px' }}>Добавить элемент</h5>
           <Button block onClick={onCreateBlockTitle}>
             Заголовок
           </Button>
-          <Button block onClick={onCreateBlockQuestionDate}>
-            Выбор даты
+
+          <h5 style={{ marginTop: '15px' }}>Добавить вопрос</h5>
+          <Button block onClick={() => onCreateBlockInputQuestion('date')}>
+            Дата
           </Button>
-          <h5 style={{ marginTop: '10px' }}>Добавить вопрос</h5>
+          <Button block onClick={() => onCreateBlockInputQuestion('text')}>
+            Текст
+          </Button>
+          <Button block onClick={() => onCreateBlockInputQuestion('number')}>
+            Число
+          </Button>
           <Button block>Один ответ</Button>
           <Button block>Несколько ответов</Button>
           <Button block>Выпадающий список</Button>
-          <Button block>Текст</Button>
-          <Button block>Число</Button>
         </div>
 
         <form className='app__content_form' style={{ flex: 1 }}>
@@ -290,21 +315,21 @@ const CreateForm = () => {
             allowClear
           />
 
-          {inputsValue.elements.map((element) =>
+          {inputsValue.elements.map((question) =>
             // Проверяем тип элемента и рендерим соответствующий блок
-            element.element.type === 'title' ? (
+            question.element.type === 'title' ? (
               <FormBlock
-                key={element.element.order}
-                element={element}
+                key={question.element.order}
+                element={question}
                 setElementTitle={setElementTitle}
                 setElementRemark={setElementRemark}
                 deleteElement={deleteElement}
                 setElementOrder={setElementOrder}
               />
-            ) : element.element.type === 'question' ? (
-              <QuestionDateBlock
-                key={element.element.order}
-                element={element}
+            ) : question.element.type === 'question' && question.component === questionsTypes.INPUT ? (
+              <QuestionInputBlock
+                key={question.element.order}
+                element={question}
                 setElementTitle={setQuestionTitle}
                 setElementRemark={setQuestionRemark}
                 deleteElement={deleteElement}
