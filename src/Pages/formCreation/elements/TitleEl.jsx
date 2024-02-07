@@ -32,7 +32,6 @@ export const TitleEl = ({ element, setElementTitle, setElementRemark, deleteElem
 			</Select> */}
         <div style={{ flex: 1, marginRight: '10px' }}>
           <Input
-            allowClear
             placeholder='Введите заголовок'
             value={element.title.text}
             onChange={(e) => setElementTitle(element.element.order, e.target.value)}
@@ -53,10 +52,11 @@ export const TitleEl = ({ element, setElementTitle, setElementRemark, deleteElem
         {isRemarkInputVisible && (
           <>
             <Input
-              allowClear
+              size='small'
+              style={{ marginRight: '10px', width: '100%' }}
               placeholder='Введите комментарий'
               onChange={handleRemarkInputChange}
-              style={{ marginRight: '10px', width: '100%' }}
+              allowClear
             />
             <Tooltip title='Удалить комментарий'>
               <Button className='ant-btn' type='text' danger icon={<CloseOutlined />} onClick={handleDeleteRemarkClick} />

@@ -126,10 +126,11 @@ export const QuestionRadioEl = ({
         {isRemarkInputVisible && (
           <>
             <Input
-              allowClear
+              size='small'
+              style={{ marginRight: '10px', flex: 1 }}
               placeholder='Введите комментарий'
               onChange={handleRemarkInputChange}
-              style={{ marginRight: '10px', flex: 1 }}
+              allowClear
             />
             <Tooltip title='Удалить комментарий'>
               <Button className='ant-btn' type='text' danger icon={<CloseOutlined />} onClick={handleDeleteRemarkClick} />
