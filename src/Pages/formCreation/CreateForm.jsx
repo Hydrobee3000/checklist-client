@@ -3,167 +3,10 @@ import { Button, Input, Tooltip, Select } from 'antd'
 import Header from '../../Components/Header/Header'
 import { CloseOutlined } from '@ant-design/icons'
 import { questionsTypes } from '../checklists/data_checklists'
+import { TitleEl } from './elements/TitleEl'
+import { QuestionInputEl } from './elements/QuestionInputEl'
+import { QuestionRadioEl } from './elements/QuestionRadioEl'
 
-const { Option } = Select
-
-const FormBlock = ({ element, setElementTitle, setElementRemark, deleteElement, setElementOrder }) => {
-  const [isRemarkInputVisible, setRemarkInputVisible] = useState(false)
-
-  const handleAddRemarkClick = () => {
-    setRemarkInputVisible(true)
-  }
-
-  const handleDeleteRemarkClick = () => {
-    setElementRemark(element.element.order, null)
-    setRemarkInputVisible(false)
-  }
-
-  const handleRemarkInputChange = (e) => {
-    setElementRemark(element.element.order, e.target.value)
-  }
-
-  const handleOrderChange = (value) => {
-    setElementOrder(element.element.order, value)
-  }
-
-  return (
-    <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
-      <h5>Заголовок</h5>
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', width: '100%' }}>
-        {/* <Select style={{ width: 70, marginRight: '5px' }} defaultValue={element.order} onChange={handleOrderChange}>
-          <Option value={1}>1.</Option>
-          <Option value={2}>2.</Option>
-        </Select> */}
-        <div style={{ flex: 1, marginRight: '10px' }}>
-          <Input
-            allowClear
-            placeholder='Введите заголовок'
-            value={element.title.text}
-            onChange={(e) => setElementTitle(element.element.order, e.target.value)}
-          />
-        </div>
-        <Tooltip title='Удалить'>
-          <Button type='text' danger icon={<CloseOutlined />} onClick={() => deleteElement(element.element.order)} />
-        </Tooltip>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-        {!isRemarkInputVisible && (
-          <Tooltip title='Добавить комментарий'>
-            <Button className='ant-btn' size='small' onClick={handleAddRemarkClick}>
-              Добавить комментарий
-            </Button>
-          </Tooltip>
-        )}
-        {isRemarkInputVisible && (
-          <>
-            <Input
-              allowClear
-              placeholder='Введите комментарий'
-              onChange={handleRemarkInputChange}
-              style={{ marginRight: '10px', width: '100%' }}
-            />
-            <Tooltip title='Удалить комментарий'>
-              <Button className='ant-btn' type='text' danger icon={<CloseOutlined />} onClick={handleDeleteRemarkClick} />
-            </Tooltip>
-          </>
-        )}
-      </div>
-    </div>
-  )
-}
-
-//
-
-const QuestionInputBlock = ({ element, setElementTitle, setElementRemark, deleteElement, setElementOrder }) => {
-  const [isRemarkInputVisible, setRemarkInputVisible] = useState(false)
-
-  const handleAddRemarkClick = () => {
-    setRemarkInputVisible(true)
-  }
-
-  const handleDeleteRemarkClick = () => {
-    setElementRemark(element.element.order, null)
-    setRemarkInputVisible(false)
-  }
-
-  const handleRemarkInputChange = (e) => {
-    setElementRemark(element.element.order, e.target.value)
-
-    setElementTitle(element.element.order, { text: element.title.text, remark: e.target.value })
-  }
-
-  const handleOrderChange = (value) => {
-    setElementOrder(element.element.order, value)
-  }
-
-  let title = ''
-
-  switch (element.type) {
-    case 'date':
-      title = 'Вопрос с выбором даты'
-      break
-
-    case 'text':
-      title = 'Вопрос с текстовым ответом'
-      break
-
-    case 'number':
-      title = 'Вопрос с числовым ответом'
-      break
-
-    default:
-      title = 'Вопрос'
-      break
-  }
-
-  return (
-    <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
-      <h5>{title}</h5>
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', width: '100%' }}>
-        <Select style={{ width: 70, marginRight: '5px' }} defaultValue={element.order} onChange={handleOrderChange}>
-          <Option value={1}>1.</Option>
-          <Option value={2}>2.</Option>
-        </Select>
-        <div style={{ flex: 1, marginRight: '10px' }}>
-          <Input
-            allowClear
-            placeholder='Введите название вопроса'
-            value={element.title.text}
-            onChange={(e) => setElementTitle(element.element.order, { ...element.title, text: e.target.value })}
-          />
-        </div>
-        <Tooltip title='Удалить'>
-          <Button type='text' danger icon={<CloseOutlined />} onClick={() => deleteElement(element.element.order)} />
-        </Tooltip>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-        {!isRemarkInputVisible && (
-          <Tooltip title='Добавить комментарий'>
-            <Button className='ant-btn' size='small' onClick={handleAddRemarkClick}>
-              Добавить комментарий
-            </Button>
-          </Tooltip>
-        )}
-        {isRemarkInputVisible && (
-          <>
-            <Input
-              allowClear
-              placeholder='Введите комментарий'
-              onChange={handleRemarkInputChange}
-              style={{ marginRight: '10px', flex: 1 }}
-            />
-            <Tooltip title='Удалить комментарий'>
-              <Button className='ant-btn' type='text' danger icon={<CloseOutlined />} onClick={handleDeleteRemarkClick} />
-            </Tooltip>
-          </>
-        )}
-      </div>
-    </div>
-  )
-}
-
-//
-//
 //
 
 const CreateForm = () => {
@@ -214,6 +57,7 @@ const CreateForm = () => {
     }))
   }
 
+  // заголовок
   const setElementTitle = (order, value) => {
     setElement(order, 'title', (element) => ({
       ...element,
@@ -221,6 +65,7 @@ const CreateForm = () => {
     }))
   }
 
+  // комментарий заголовка
   const setElementRemark = (order, value) => {
     setElement(order, 'title', (element) => ({
       ...element,
@@ -228,6 +73,7 @@ const CreateForm = () => {
     }))
   }
 
+  // заголовок вопроса
   const setQuestionTitle = (order, value) => {
     setElement(order, 'question', (element) => ({
       ...element,
@@ -235,6 +81,7 @@ const CreateForm = () => {
     }))
   }
 
+  // комментарий заголовка вопроса
   const setQuestionRemark = (order, value) => {
     setElement(order, 'question', (element) => ({
       ...element,
@@ -251,6 +98,7 @@ const CreateForm = () => {
     }))
   }
 
+  // добавление вопроса с типом input (date, number, text)
   const onCreateBlockInputQuestion = (type) => {
     const newBlock = {
       element: { type: 'question', order: inputsValue.elements.length + 1 },
@@ -261,6 +109,28 @@ const CreateForm = () => {
       type: type,
       component: questionsTypes.INPUT,
       isRequire: true,
+    }
+
+    setInputsValue((prevData) => ({
+      ...prevData,
+      elements: [...prevData.elements, newBlock],
+    }))
+  }
+
+  // добавление вопроса с выбором одного варианта ответа
+  const onCreateBlockSingleChoice = () => {
+    const newBlock = {
+      element: { type: 'question', order: inputsValue.elements.length + 1 },
+      indexName: 'radio',
+      order: null,
+      title: {
+        text: '',
+        remark: null,
+      },
+      type: 'radio',
+      component: questionsTypes.RADIO,
+      isRequire: true,
+      radio: [{ value: '' }, { value: '' }], // Замените значениями вашего вопроса
     }
 
     setInputsValue((prevData) => ({
@@ -299,7 +169,9 @@ const CreateForm = () => {
           <Button block onClick={() => onCreateBlockInputQuestion('number')}>
             Число
           </Button>
-          <Button block>Один ответ</Button>
+          <Button block onClick={() => onCreateBlockSingleChoice('radio')}>
+            Один ответ
+          </Button>
           <Button block>Несколько ответов</Button>
           <Button block>Выпадающий список</Button>
         </div>
@@ -316,9 +188,8 @@ const CreateForm = () => {
           />
 
           {inputsValue.elements.map((question) =>
-            // Проверяем тип элемента и рендерим соответствующий блок
             question.element.type === 'title' ? (
-              <FormBlock
+              <TitleEl
                 key={question.element.order}
                 element={question}
                 setElementTitle={setElementTitle}
@@ -327,10 +198,21 @@ const CreateForm = () => {
                 setElementOrder={setElementOrder}
               />
             ) : question.element.type === 'question' && question.component === questionsTypes.INPUT ? (
-              <QuestionInputBlock
+              <QuestionInputEl
                 key={question.element.order}
                 element={question}
-                setElementTitle={setQuestionTitle}
+                setQuestionTitle={setQuestionTitle}
+                setElementRemark={setQuestionRemark}
+                deleteElement={deleteElement}
+                setElementOrder={setElementOrder}
+              />
+            ) : question.element.type === 'question' && question.component === questionsTypes.RADIO ? (
+              <QuestionRadioEl
+                key={question.element.order}
+                inputsValue={inputsValue}
+                setInputsValue={setInputsValue}
+                element={question}
+                setQuestionTitle={setQuestionTitle}
                 setElementRemark={setQuestionRemark}
                 deleteElement={deleteElement}
                 setElementOrder={setElementOrder}
