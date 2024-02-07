@@ -8,13 +8,13 @@ export const QuestionRadioEl = ({
   inputsValue,
   setInputsValue,
   element,
-  setElementTitle: setQuestionTitle,
+  setQuestionTitle,
   setElementRemark,
   deleteElement,
   setElementOrder,
 }) => {
   const [isRemarkInputVisible, setRemarkInputVisible] = useState(false)
-  const [radioAnswers, setRadioAnswers] = useState(element.radio)
+  const radioAnswers = element.radio || []
 
   const handleAddRemarkClick = () => {
     setRemarkInputVisible(true)
@@ -35,42 +35,50 @@ export const QuestionRadioEl = ({
   }
 
   const handleRadioAnswerChange = (index, e) => {
-    const updatedRadioAnswers = [...radioAnswers]
+    const updatedRadioAnswers = [...inputsValue.elements[element.element.order - 1].radio]
     updatedRadioAnswers[index].value = e.target.value
-    setRadioAnswers(updatedRadioAnswers)
+    setInputsValue((prevData) => ({
+      ...prevData,
+      elements: prevData.elements.map((el, i) => {
+        if (i === element.element.order - 1) {
+          return {
+            ...el,
+            radio: updatedRadioAnswers,
+          }
+        }
+        return el
+      }),
+    }))
   }
 
   // Добавление нового варианта ответа
-  const handleAddRadioAnswer = (index) => {
-    const updatedRadio = [...inputsValue.elements[index].radio, { value: '' }]
+  const handleAddRadioAnswer = () => {
     setInputsValue((prevData) => ({
       ...prevData,
-      elements: prevData.elements.map((element, i) => {
-        if (i === index) {
+      elements: prevData.elements.map((el, i) => {
+        if (i === element.element.order - 1) {
           return {
-            ...element,
-            radio: updatedRadio,
+            ...el,
+            radio: [...el.radio, { value: '' }],
           }
         }
-        return element
+        return el
       }),
     }))
   }
 
   // Удаление варианта ответа
-  const handleDeleteRadioAnswer = (questionIndex, answerIndex) => {
-    const updatedRadio = [...inputsValue.elements[questionIndex].radio]
-    updatedRadio.splice(answerIndex, 1)
+  const handleDeleteRadioAnswer = (answerIndex) => {
     setInputsValue((prevData) => ({
       ...prevData,
-      elements: prevData.elements.map((element, i) => {
-        if (i === questionIndex) {
+      elements: prevData.elements.map((el, i) => {
+        if (i === element.element.order - 1) {
           return {
-            ...element,
-            radio: updatedRadio,
+            ...el,
+            radio: el.radio.filter((_, index) => index !== answerIndex),
           }
         }
-        return element
+        return el
       }),
     }))
   }
