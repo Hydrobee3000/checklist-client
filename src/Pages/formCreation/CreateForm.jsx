@@ -179,6 +179,7 @@ const CreateForm = () => {
         <form className='app__content_form' style={{ flex: 1 }}>
           <h5>Название формы</h5>
           <Input
+            size='large'
             style={{ marginBottom: '40px' }}
             placeholder='Введите название формы'
             onChange={(e) => {
