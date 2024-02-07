@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Input, Tooltip, Select } from 'antd'
-import { CloseOutlined } from '@ant-design/icons'
+import { CloseOutlined, DeleteOutlined, DeleteFilled } from '@ant-design/icons'
 
 const { Option } = Select
 
@@ -63,7 +63,7 @@ export const QuestionInputEl = ({ element, setQuestionTitle, setElementRemark, d
           />
         </div>
         <Tooltip title='Удалить вопрос'>
-          <Button type='text' danger icon={<CloseOutlined />} onClick={() => deleteElement(element.element.order)} />
+          <Button type='text' danger icon={<DeleteFilled />} onClick={() => deleteElement(element.element.order)} />
         </Tooltip>
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>

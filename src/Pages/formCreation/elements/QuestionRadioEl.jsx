@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Input, Tooltip, Select } from 'antd'
-import { CloseOutlined } from '@ant-design/icons'
+import { Button, Input, Tooltip, Select, Radio } from 'antd'
+import { CloseOutlined, DeleteOutlined, DeleteFilled } from '@ant-design/icons'
 
 const { Option } = Select
 
@@ -112,10 +112,10 @@ export const QuestionRadioEl = ({
           />
         </div>
         <Tooltip title='Удалить вопрос'>
-          <Button type='text' danger icon={<CloseOutlined />} onClick={() => deleteElement(element.element.order)} />
+          <Button type='text' danger icon={<DeleteFilled />} onClick={() => deleteElement(element.element.order)} />
         </Tooltip>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginBottom: '8px' }}>
         {!isRemarkInputVisible && (
           <Tooltip title='Добавить комментарий'>
             <Button style={{ marginBottom: '8px' }} className='ant-btn' size='small' onClick={handleAddRemarkClick}>
@@ -137,11 +137,13 @@ export const QuestionRadioEl = ({
           </>
         )}
       </div>
+
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
         {radioAnswers.map((radioAnswer, index) => (
           <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', width: '100%' }}>
+            <Radio disabled style={{ marginLeft: '5px' }} />
             <Input
-              style={{ marginRight: '10px', flex: 1, marginBottom: '8px' }}
+              style={{ marginRight: '10px', flex: 1, marginLeft: '10px' }}
               allowClear
               placeholder='Введите вариант ответа'
               value={radioAnswer.value}

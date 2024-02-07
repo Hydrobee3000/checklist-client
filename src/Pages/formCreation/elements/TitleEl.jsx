@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Input, Tooltip } from 'antd'
-import { CloseOutlined } from '@ant-design/icons'
+import { CloseOutlined, DeleteOutlined, DeleteFilled } from '@ant-design/icons'
 
 export const TitleEl = ({ element, setElementTitle, setElementRemark, deleteElement, setElementOrder }) => {
   const [isRemarkInputVisible, setRemarkInputVisible] = useState(false)
@@ -39,7 +39,7 @@ export const TitleEl = ({ element, setElementTitle, setElementRemark, deleteElem
           />
         </div>
         <Tooltip title='Удалить заголовок'>
-          <Button type='text' danger icon={<CloseOutlined />} onClick={() => deleteElement(element.element.order)} />
+          <Button type='text' danger icon={<DeleteFilled />} onClick={() => deleteElement(element.element.order)} />
         </Tooltip>
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
