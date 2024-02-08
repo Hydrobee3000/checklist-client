@@ -6,6 +6,8 @@ export const questionsTypes = {
   SELECT_SINGLE: 'SELECT_SINGLE',
   SELECT_MULTIPLE: 'SELECT_MULTIPLE',
 }
+// isHasCorrectAnswer: false,
+// radio: [{isCorrect: false, title: 'Название', value: 'Смена 2', additionalInput: false }],
 
 export const checklistsData = [
   {
@@ -27,7 +29,7 @@ export const checklistsData = [
         indexName: 'date',
         order: null,
         title: {
-          text: 'Введите дату проверки',
+          text: 'Выберите дату проверки',
           remark: null,
         },
         type: 'date',
@@ -57,7 +59,8 @@ export const checklistsData = [
         type: 'radio',
         component: questionsTypes.RADIO,
         isRequire: true,
-        radio: [{ value: 'Смена 1' }, { value: 'Смена 2' }],
+        isMultipleAnswers: true,
+        variants: [{ value: 'Смена 1' }, { value: 'Смена 2' }],
       },
       {
         element: { type: 'question', order: 5 },
@@ -70,9 +73,28 @@ export const checklistsData = [
         type: 'text',
         component: questionsTypes.RADIO_PLUS_INPUT,
         isRequire: true,
-        radio: [
+        isMultipleAnswers: false,
+        variants: [
           { value: 'PAUS 227', additionalInput: true },
           { value: 'bla', additionalInput: true },
+        ],
+      },
+      {
+        element: { type: 'question', order: 6 },
+        indexName: 'auditorDivision',
+        order: null,
+        title: {
+          text: 'Подразделение аудитора:',
+          remark: null,
+        },
+        type: 'select',
+        component: questionsTypes.SELECT_SINGLE,
+        isRequire: true,
+        select: [
+          { value: 'ЯГОК - БСС - БСС' },
+          { value: 'ЯГОК - ДпВП - АТЦ' },
+          { value: 'ЯГОК - ДпВП - ЖДТЦ' },
+          { value: 'ЯГОК - ДпВП - КЗП' },
         ],
       },
     ],
@@ -125,8 +147,9 @@ export const checklistsData = [
         },
         type: 'radio',
         component: questionsTypes.RADIO,
+        isMultipleAnswers: false,
         isRequire: true,
-        radio: [{ value: 'Смена 1' }, { value: 'Смена 2' }],
+        variants: [{ value: 'Смена 1' }, { value: 'Смена 2' }],
       },
       {
         element: { type: 'question', order: 5 },
@@ -139,246 +162,9 @@ export const checklistsData = [
         type: 'text',
         component: questionsTypes.RADIO_PLUS_INPUT,
         isRequire: true,
-        radio: [
+        variants: [
           { value: 'PAUS 227', additionalInput: true },
           { value: 'bla', additionalInput: true },
-        ],
-      },
-    ],
-  },
-]
-
-export const checklistsData2 = [
-  {
-    formsName: 'Тестировочная форма',
-    id: 123,
-    startTime: null, // время начала заполнения формы
-    blocks: [
-      {
-        isExist: true,
-        title: {
-          text: 'blockTitle 1',
-          remark: 'blockRemark 1', // подпись к блока (если передать массив строк - каждая переданная строка отобразится на новой строке)
-        },
-        order: 1, // нумерация блока ( пример: '1.' )
-
-        questionsData: [
-          {
-            indexName: 'date', // название свойства, в которое запишется значение
-            order: null, // нумерация вопроса ( пример: '1.' )
-            title: 'Введите дату проверки', // сам вопрос
-            titleRemark: null, // подпись к вопросу (если передать массив строк - каждая переданная строка отобразится на новой строке)
-            type: 'date', // тип значения
-            component: questionsTypes.INPUT,
-            isRequire: true, // является ли вопрос обязательным
-          },
-          {
-            indexName: 'tabNumber',
-            order: null,
-            title: 'Табельный номер',
-            titleRemark: null,
-            type: 'number',
-            component: questionsTypes.INPUT,
-            isRequire: true, // является ли вопрос обязательным
-          },
-          {
-            indexName: 'smena',
-            order: null,
-            title: 'Введите смену',
-            titleRemark: null,
-            type: 'radio',
-            component: questionsTypes.RADIO,
-            isRequire: true,
-            radio: [{ value: 'Смена 1' }, { value: 'Смена 2' }],
-          },
-          {
-            indexName: 'lethalLocation',
-            order: null,
-            title: 'Локация смертельного риска:',
-            titleRemark: null,
-            type: 'text',
-            component: questionsTypes.RADIO_PLUS_INPUT,
-            isRequire: true,
-            radio: [
-              { value: 'PAUS 227', additionalInput: true },
-              { value: 'bla', additionalInput: true },
-            ],
-          },
-        ],
-      },
-
-      {
-        isExist: true,
-        title: {
-          text: 'Смертельный риск ',
-          remark: 'заполните смертельный риск', // подпись к блока (если передать массив строк - каждая переданная строка отобразится на новой строке)
-        },
-        order: 1, // нумерация блока ( пример: '1.' )
-
-        questionsData: [
-          {
-            indexName: 'wheelChocks',
-            order: '1.',
-            title: 'Проверил огнетушители ',
-            titleRemark: 'Наличие ',
-            type: 'radio',
-            component: questionsTypes.RADIO_WITH_ADDITIONAL_INPUT,
-            isRequire: true,
-            radio: [
-              { name: 'wheelChocksTrue', value: 'Да' },
-              { name: 'wheelChocksFalse', value: 'Нет' },
-              { name: 'wheelChocksNotRequire', value: 'Не требуется' },
-            ],
-            additionalQuestion: {
-              indexName: 'wheelChocksDop',
-              type: 'checkbox',
-              checkbox: [
-                { name: 'wheelChocksWorkStop', value: 'Работы остановил' },
-                { name: 'wheelChocksMaster', value: 'Доложил x' },
-                { name: 'wheelChocksOther', value: 'Замечания ', require: false },
-              ],
-            },
-          },
-          {
-            indexName: 'antiCollisionSystem',
-            order: '2.',
-            title: 'Проверил систему',
-            titleRemark: 'Проверить исправность ',
-            type: 'radio',
-            component: questionsTypes.RADIO_WITH_ADDITIONAL_INPUT,
-            isRequire: true,
-            radio: [
-              { name: 'antiCollisionSystemTrue', value: 'Да' },
-              { name: 'antiCollisionSystemFalse', value: 'Нет' },
-              { name: 'antiCollisionSystemNotRequire', value: 'Не требуется' },
-            ],
-            additionalQuestion: {
-              indexName: 'antiCollisionSystemDop',
-              type: 'checkbox',
-              checkbox: [
-                { name: 'antiCollisionSystemWorkStop', value: 'Работы остановил' },
-                { name: 'antiCollisionSystemMaster', value: 'Доложил ' },
-                { name: 'antiCollisionSystemOther', value: 'Замечания ', require: false },
-              ],
-            },
-          },
-        ],
-      },
-    ],
-  },
-  {
-    formsName: 'Тестировочная форма 222222',
-    id: 12223,
-    startTime: null, // время начала заполнения формы
-    blocks: [
-      {
-        isExist: true,
-        title: {
-          text: 'blockTitle 1222222',
-          remark: 'blockRemark 1222222', // подпись к блока (если передать массив строк - каждая переданная строка отобразится на новой строке)
-        },
-        order: 1, // нумерация блока ( пример: '1.' )
-
-        questionsData: [
-          {
-            indexName: 'date', // название свойства, в которое запишется значение
-            order: null, // нумерация вопроса ( пример: '1.' )
-            title: 'Введите дату проверк222222и', // сам вопрос
-            titleRemark: null, // подпись к вопросу (если передать массив строк - каждая переданная строка отобразится на новой строке)
-            type: 'date', // тип значения
-            component: questionsTypes.INPUT,
-            isRequire: true, // является ли вопрос обязательным
-          },
-          {
-            indexName: 'tabNumber',
-            order: null,
-            title: 'Табельный номе222222р',
-            titleRemark: null,
-            type: 'number',
-            component: questionsTypes.INPUT,
-            isRequire: true, // является ли вопрос обязательным
-          },
-          {
-            indexName: 'smena',
-            order: null,
-            title: 'Введите сме222222ну',
-            titleRemark: null,
-            type: 'radio',
-            component: questionsTypes.RADIO,
-            isRequire: true,
-            radio: [{ value: 'Смена 1' }, { value: 'Смена 2' }],
-          },
-          {
-            indexName: 'lethalLocation',
-            order: null,
-            title: 'Локация смертель222222ного риска:',
-            titleRemark: null,
-            type: 'text',
-            component: questionsTypes.RADIO_PLUS_INPUT,
-            isRequire: true,
-            radio: [
-              { value: 'PAUS 227', additionalInput: true },
-              { value: 'bla', additionalInput: true },
-            ],
-          },
-        ],
-      },
-
-      {
-        isExist: true,
-        title: {
-          text: 'Смертельный риск ',
-          remark: 'заполните смертельный риск', // подпись к блока (если передать массив строк - каждая переданная строка отобразится на новой строке)
-        },
-        order: 1, // нумерация блока ( пример: '1.' )
-
-        questionsData: [
-          {
-            indexName: 'wheelChocks',
-            order: '1.',
-            title: 'Проверил огнетушители ',
-            titleRemark: 'Наличие ',
-            type: 'radio',
-            component: questionsTypes.RADIO_WITH_ADDITIONAL_INPUT,
-            isRequire: true,
-            radio: [
-              { name: 'wheelChocksTrue', value: 'Да' },
-              { name: 'wheelChocksFalse', value: 'Нет' },
-              { name: 'wheelChocksNotRequire', value: 'Не требуется' },
-            ],
-            additionalQuestion: {
-              indexName: 'wheelChocksDop',
-              type: 'checkbox',
-              checkbox: [
-                { name: 'wheelChocksWorkStop', value: 'Работы остановил' },
-                { name: 'wheelChocksMaster', value: 'Доложил x' },
-                { name: 'wheelChocksOther', value: 'Замечания ', require: false },
-              ],
-            },
-          },
-          {
-            indexName: 'antiCollisionSystem',
-            order: '2.',
-            title: 'Проверил систему',
-            titleRemark: 'Проверить исправность ',
-            type: 'radio',
-            component: questionsTypes.RADIO_WITH_ADDITIONAL_INPUT,
-            isRequire: true,
-            radio: [
-              { name: 'antiCollisionSystemTrue', value: 'Да' },
-              { name: 'antiCollisionSystemFalse', value: 'Нет' },
-              { name: 'antiCollisionSystemNotRequire', value: 'Не требуется' },
-            ],
-            additionalQuestion: {
-              indexName: 'antiCollisionSystemDop',
-              type: 'checkbox',
-              checkbox: [
-                { name: 'antiCollisionSystemWorkStop', value: 'Работы остановил' },
-                { name: 'antiCollisionSystemMaster', value: 'Доложил ' },
-                { name: 'antiCollisionSystemOther', value: 'Замечания ', require: false },
-              ],
-            },
-          },
         ],
       },
     ],

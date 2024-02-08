@@ -34,7 +34,7 @@ const RadioPlusInputQuestion = ({
       <div className='app__content_radio'>
         {/* Отображаем варианты ответов (радио кнопки)  */}
 
-        {dataQuestion?.radio.map((el) => {
+        {dataQuestion?.variants.map((el) => {
           return (
             <React.Fragment key={el.value}>
               <div className='app__content_radio-value'>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Input, Tooltip, Select, Radio } from 'antd'
+import { Button, Input, Tooltip, Select, Radio, Switch, Checkbox } from 'antd'
 import { CloseOutlined, DeleteOutlined, DeleteFilled } from '@ant-design/icons'
 
 const { Option } = Select
@@ -12,9 +12,10 @@ export const QuestionRadioEl = ({
   setElementRemark,
   deleteElement,
   setElementOrder,
+  multiple = false,
 }) => {
   const [isRemarkInputVisible, setRemarkInputVisible] = useState(false)
-  const radioAnswers = element.radio || []
+  const radioAnswers = element.variants || []
 
   const handleAddRemarkClick = () => {
     setRemarkInputVisible(true)
@@ -35,7 +36,7 @@ export const QuestionRadioEl = ({
   }
 
   const handleRadioAnswerChange = (index, e) => {
-    const updatedRadioAnswers = [...inputsValue.elements[element.element.order - 1].radio]
+    const updatedRadioAnswers = [...inputsValue.elements[element.element.order - 1].variants]
     updatedRadioAnswers[index].value = e.target.value
     setInputsValue((prevData) => ({
       ...prevData,
@@ -43,7 +44,7 @@ export const QuestionRadioEl = ({
         if (i === element.element.order - 1) {
           return {
             ...el,
-            radio: updatedRadioAnswers,
+            variants: updatedRadioAnswers,
           }
         }
         return el
@@ -59,7 +60,7 @@ export const QuestionRadioEl = ({
         if (i === element.element.order - 1) {
           return {
             ...el,
-            radio: [...el.radio, { value: '' }],
+            variants: [...el.variants, { value: '' }],
           }
         }
         return el
@@ -75,7 +76,7 @@ export const QuestionRadioEl = ({
         if (i === element.element.order - 1) {
           return {
             ...el,
-            radio: el.radio.filter((_, index) => index !== answerIndex),
+            variants: el.variants.filter((_, index) => index !== answerIndex),
           }
         }
         return el
@@ -83,21 +84,14 @@ export const QuestionRadioEl = ({
     }))
   }
 
-  let title = ''
-
-  switch (element.type) {
-    case 'radio':
-      title = 'Вопрос с одним вариантом ответа'
-      break
-
-    default:
-      title = 'Вопрос'
-      break
-  }
+  let title = multiple ? 'Вопрос с множеством вариантов ответа' : 'Вопрос с одним вариантом ответа'
 
   return (
     <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
+      {/* <div style={{ marginBottom: '10px' }}> */}
       <h5>{title}</h5>
+      {/* <Switch size='small' checkedChildren='1' unCheckedChildren='>1' /> */}
+      {/* </div> */}
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', width: '100%' }}>
         <Select style={{ width: 70, marginRight: '5px' }} defaultValue={element.order} onChange={handleOrderChange}>
           <Option value={1}>1.</Option>
@@ -142,9 +136,9 @@ export const QuestionRadioEl = ({
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
         {radioAnswers.map((radioAnswer, index) => (
           <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', width: '100%' }}>
-            <Radio disabled style={{ marginLeft: '5px' }} />
+            {multiple ? <Checkbox disabled style={{ marginLeft: '5px' }} /> : <Radio disabled style={{ marginLeft: '5px' }} />}
             <Input
-              style={{ marginRight: '10px', flex: 1, marginLeft: '10px' }}
+              style={{ marginRight: '10px', flex: 1, marginLeft: multiple ? '13px' : '5px' }}
               allowClear
               placeholder='Введите вариант ответа'
               value={radioAnswer.value}

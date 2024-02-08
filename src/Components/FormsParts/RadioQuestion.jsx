@@ -71,7 +71,7 @@ const RadioQuestion = ({
       <div className='app__content_radio'>
         {/* Отображаем варианты ответов (радио кнопки или при множественном выборе чекбоксы)  */}
 
-        {dataQuestion.radio.map((el) => {
+        {dataQuestion.variants.map((el) => {
           return (
             <div key={el.value} className='app__content_radio-value'>
               <label className='app__content_radio-label'>
