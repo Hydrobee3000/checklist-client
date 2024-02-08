@@ -78,7 +78,7 @@ export const QuestionRadioEl = ({
         if (i === element.element.order - 1) {
           return {
             ...el,
-            isMultipleAnswers: el.variants.filter((_, index) => index !== answerIndex),
+            variants: el.variants.filter((_, index) => index !== answerIndex),
           }
         }
         return el
