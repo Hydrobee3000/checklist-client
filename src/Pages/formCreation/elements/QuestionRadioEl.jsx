@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Button, Input, Tooltip, Select, Radio, Switch, Checkbox } from 'antd'
+import React, { useState, useEffect } from 'react'
+import { Button, Input, Tooltip, Select, Radio, Switch, Checkbox, Typography } from 'antd'
 import { CloseOutlined, DeleteOutlined, DeleteFilled } from '@ant-design/icons'
 
 const { Option } = Select
@@ -15,6 +15,8 @@ export const QuestionRadioEl = ({
   multiple = false,
 }) => {
   const [isRemarkInputVisible, setRemarkInputVisible] = useState(false)
+  const [isMultipleAnswers, setIsMultipleAnswers] = useState(multiple) // Добавлено состояние для хранения значения переключателя
+
   const radioAnswers = element.variants || []
 
   const handleAddRemarkClick = () => {
@@ -76,7 +78,7 @@ export const QuestionRadioEl = ({
         if (i === element.element.order - 1) {
           return {
             ...el,
-            variants: el.variants.filter((_, index) => index !== answerIndex),
+            isMultipleAnswers: el.variants.filter((_, index) => index !== answerIndex),
           }
         }
         return el
@@ -84,14 +86,39 @@ export const QuestionRadioEl = ({
     }))
   }
 
-  let title = multiple ? 'Вопрос с множеством вариантов ответа' : 'Вопрос с одним вариантом ответа'
+  useEffect(() => {
+    const updateIsMultipleAnswers = () => {
+      setInputsValue((prevData) => ({
+        ...prevData,
+        elements: prevData.elements.map((el, i) => {
+          if (i === element.element.order - 1) {
+            return {
+              ...el,
+              isMultipleAnswers: isMultipleAnswers,
+            }
+          }
+          return el
+        }),
+      }))
+    }
+
+    updateIsMultipleAnswers()
+  }, [isMultipleAnswers, setInputsValue, element.element.order])
+
+  let title = isMultipleAnswers ? 'Вопрос с множеством вариантов ответа' : 'Вопрос с одним вариантом ответа'
 
   return (
     <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
-      {/* <div style={{ marginBottom: '10px' }}> */}
-      <h5>{title}</h5>
-      {/* <Switch size='small' checkedChildren='1' unCheckedChildren='>1' /> */}
-      {/* </div> */}
+      <h4>{title}</h4>
+      <div style={{ marginBottom: '10px' }}>
+        <Typography style={{ opacity: 0.3 }}>ответов</Typography>
+        <Switch
+          checked={isMultipleAnswers} // Привязываем переключатель к состоянию isMultipleAnswers
+          onChange={(checked) => setIsMultipleAnswers(checked)} // Обновляем состояние isMultipleAnswers при изменении переключателя
+          checkedChildren='1'
+          unCheckedChildren='>1'
+        />
+      </div>
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', width: '100%' }}>
         <Select style={{ width: 70, marginRight: '5px' }} defaultValue={element.order} onChange={handleOrderChange}>
           <Option value={1}>1.</Option>
@@ -136,9 +163,13 @@ export const QuestionRadioEl = ({
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
         {radioAnswers.map((radioAnswer, index) => (
           <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', width: '100%' }}>
-            {multiple ? <Checkbox disabled style={{ marginLeft: '5px' }} /> : <Radio disabled style={{ marginLeft: '5px' }} />}
+            {isMultipleAnswers ? (
+              <Checkbox disabled style={{ marginLeft: '5px' }} />
+            ) : (
+              <Radio disabled style={{ marginLeft: '5px' }} />
+            )}
             <Input
-              style={{ marginRight: '10px', flex: 1, marginLeft: multiple ? '13px' : '5px' }}
+              style={{ marginRight: '10px', flex: 1, marginLeft: isMultipleAnswers ? '13px' : '5px' }}
               allowClear
               placeholder='Введите вариант ответа'
               value={radioAnswer.value}
