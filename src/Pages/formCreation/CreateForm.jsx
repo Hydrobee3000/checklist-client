@@ -6,6 +6,7 @@ import { questionsTypes } from '../checklists/data_checklists'
 import { TitleEl } from './elements/TitleEl'
 import { QuestionInputEl } from './elements/QuestionInputEl'
 import { QuestionRadioEl } from './elements/QuestionRadioEl'
+import { QuestionSelectEl } from './elements/QuestionSelectEl'
 
 //
 
@@ -117,8 +118,8 @@ const CreateForm = () => {
     }))
   }
 
-  // добавление вопроса с выбором одного варианта ответа
-  const onCreateBlockSingleChoice = () => {
+  // добавление вопроса с выбором варианта ответа: один/множество
+  const onCreateBlockRadioQuestion = (isMultiple = false) => {
     const newBlock = {
       element: { type: 'question', order: inputsValue.elements.length + 1 },
       indexName: 'radio',
@@ -130,7 +131,31 @@ const CreateForm = () => {
       type: 'radio',
       component: questionsTypes.RADIO,
       isRequire: true,
-      radio: [{ value: '' }, { value: '' }], // Замените значениями вашего вопроса
+      isMultipleAnswers: isMultiple,
+      variants: [{ value: '' }, { value: '' }],
+    }
+
+    setInputsValue((prevData) => ({
+      ...prevData,
+      elements: [...prevData.elements, newBlock],
+    }))
+  }
+
+  // добавление вопроса с выбором варианта ответа из списка: один/множество
+  const onCreateBlockSelectQuestion = (isMultiple = false) => {
+    const newBlock = {
+      element: { type: 'question', order: inputsValue.elements.length + 1 },
+      indexName: 'select Question',
+      order: null,
+      title: {
+        text: '',
+        remark: null,
+      },
+      type: 'select',
+      component: isMultiple ? questionsTypes.SELECT_MULTIPLE : questionsTypes.SELECT_SINGLE,
+      isRequire: true,
+      isMultipleAnswers: isMultiple,
+      variants: [{ value: '' }, { value: '' }],
     }
 
     setInputsValue((prevData) => ({
@@ -147,7 +172,7 @@ const CreateForm = () => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            width: '200px',
+            width: '170px',
             border: '1px dashed black',
             borderRadius: '5px',
             padding: '5px',
@@ -155,25 +180,54 @@ const CreateForm = () => {
           }}
         >
           <h5 style={{ marginTop: '10px' }}>Добавить элемент</h5>
-          <Button block onClick={onCreateBlockTitle}>
+          <Button block style={{ height: '30px' }} onClick={onCreateBlockTitle}>
             Заголовок
           </Button>
 
           <h5 style={{ marginTop: '15px' }}>Добавить вопрос</h5>
-          <Button block onClick={() => onCreateBlockInputQuestion('date')}>
+          <Button
+            block
+            size='small'
+            style={{ height: '30px', marginBottom: '8px' }}
+            onClick={() => onCreateBlockInputQuestion('date')}
+          >
             Дата
           </Button>
-          <Button block onClick={() => onCreateBlockInputQuestion('text')}>
+          <Button
+            block
+            size='small'
+            style={{ height: '30px', marginBottom: '8px' }}
+            onClick={() => onCreateBlockInputQuestion('text')}
+          >
             Текст
           </Button>
-          <Button block onClick={() => onCreateBlockInputQuestion('number')}>
+          <Button
+            block
+            size='small'
+            style={{ height: '30px', marginBottom: '8px' }}
+            onClick={() => onCreateBlockInputQuestion('number')}
+          >
             Число
           </Button>
-          <Button block onClick={() => onCreateBlockSingleChoice('radio')}>
+          <Button block size='small' style={{ height: '30px', marginBottom: '8px' }} onClick={() => onCreateBlockRadioQuestion()}>
             Один ответ
           </Button>
-          <Button block>Несколько ответов</Button>
-          <Button block>Выпадающий список</Button>
+          <Button
+            block
+            size='small'
+            style={{ height: '30px', marginBottom: '8px' }}
+            onClick={() => onCreateBlockRadioQuestion(true)}
+          >
+            Несколько ответов
+          </Button>
+          <Button
+            block
+            size='small'
+            style={{ height: '30px', marginBottom: '8px' }}
+            onClick={() => onCreateBlockSelectQuestion(false)}
+          >
+            Выпадающий список
+          </Button>
         </div>
 
         <form className='app__content_form' style={{ flex: 1 }}>
@@ -217,6 +271,19 @@ const CreateForm = () => {
                 setElementRemark={setQuestionRemark}
                 deleteElement={deleteElement}
                 setElementOrder={setElementOrder}
+                multiple={question.isMultipleAnswers}
+              />
+            ) : question.element.type === 'question' && question.component === questionsTypes.SELECT_SINGLE ? (
+              <QuestionSelectEl
+                key={question.element.order}
+                inputsValue={inputsValue}
+                setInputsValue={setInputsValue}
+                element={question}
+                setQuestionTitle={setQuestionTitle}
+                setElementRemark={setQuestionRemark}
+                deleteElement={deleteElement}
+                setElementOrder={setElementOrder}
+                multiple={question.isMultipleAnswers}
               />
             ) : null
           )}

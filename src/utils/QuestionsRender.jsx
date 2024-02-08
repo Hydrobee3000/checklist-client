@@ -5,7 +5,7 @@ import WithAdditionalQuestion from '../Components/FormsParts/WithAdditionalQuest
 import RadioPlusInputQuestion from '../Components/FormsParts/RadioPlusInputQuestion'
 
 const QuestionRenderer = ({ questionData, setInputsValue, inputsValue, isReadonly, today }) => {
-  const { component, type, isRequire } = questionData
+  const { component, type, isRequire, isMultipleAnswers } = questionData
 
   switch (component) {
     case 'INPUT':
@@ -25,8 +25,9 @@ const QuestionRenderer = ({ questionData, setInputsValue, inputsValue, isReadonl
           setInputsValue={setInputsValue}
           inputsValue={inputsValue}
           isReadonly={isReadonly}
-          inputType={type}
           required={isRequire}
+          multiple={isMultipleAnswers}
+          inputType={type}
         />
       )
     case 'RADIO_PLUS_INPUT':
