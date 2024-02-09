@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { LineOutlined } from '@ant-design/icons'
-import TitleCreation from '../../../Components/FormsParts/FormCreation/TitleCreation'
-import QuestionCreation from '../../../Components/FormsParts/FormCreation/QuestionCreation'
+import ElementTitleCreation from '../../../Components/FormsParts/CreationParts/ElementTitleCreation'
+import QuestionTitleCreation from '../../../Components/FormsParts/CreationParts/QuestionTitleCreation'
 
 /**
  * Компонент для отображения вопроса с ответом в виде поля ввода (date, text, number).
@@ -40,13 +40,13 @@ export const TitleEl = ({ element, setElementTitle, setElementRemark, deleteElem
   return (
     <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
       {/* заголовок элемента */}
-      <TitleCreation>
+      <ElementTitleCreation>
         <LineOutlined style={{ marginRight: '10px', opacity: 0.5 }} />
         Заголовок
-      </TitleCreation>
+      </ElementTitleCreation>
 
       {/* вопрос */}
-      <QuestionCreation
+      <QuestionTitleCreation
         element={element}
         setQuestionTitle={setElementTitle}
         deleteElement={deleteElement}

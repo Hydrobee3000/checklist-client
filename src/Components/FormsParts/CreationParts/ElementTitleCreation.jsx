@@ -7,7 +7,7 @@ import { Typography } from 'antd'
  * @param {React.ReactNode} props.children - Дочерние элементы компонента.
  * @returns {JSX.Element} Компонент React.
  */
-const TitleCreation = ({ children }) => {
+const ElementTitleCreation = ({ children }) => {
   return (
     <Typography level={2} style={{ marginBottom: '10px', fontWeight: 'bold' }}>
       {children}
@@ -15,4 +15,4 @@ const TitleCreation = ({ children }) => {
   )
 }
 
-export default TitleCreation
+export default ElementTitleCreation

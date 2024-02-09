@@ -18,7 +18,7 @@ const { Option } = Select
  * @returns {JSX.Element} Компонент React.
  */
 
-const QuestionCreation = ({
+const QuestionTitleCreation = ({
   element,
   setQuestionTitle,
   deleteElement,
@@ -79,4 +79,4 @@ const QuestionCreation = ({
   )
 }
 
-export default QuestionCreation
+export default QuestionTitleCreation

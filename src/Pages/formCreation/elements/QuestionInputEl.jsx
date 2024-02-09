@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { CalendarOutlined, FontSizeOutlined, FieldNumberOutlined, LineOutlined } from '@ant-design/icons'
-import TitleCreation from '../../../Components/FormsParts/FormCreation/TitleCreation'
-import QuestionCreation from '../../../Components/FormsParts/FormCreation/QuestionCreation'
+import ElementTitleCreation from '../../../Components/FormsParts/CreationParts/ElementTitleCreation'
+import QuestionTitleCreation from '../../../Components/FormsParts/CreationParts/QuestionTitleCreation'
 
 /**
  * Компонент для отображения вопроса с ответом в виде поля ввода (date, text, number).
  *
- * @param {Object} props - Свойства компонента.
  * @param {Object} props.element - Объект данных вопроса.
  * @param {Function} props.setQuestionTitle - Функция для установки заголовка вопроса.
  * @param {Function} props.setElementRemark - Функция для установки комментария заголовка.
@@ -29,7 +28,6 @@ export const QuestionInputEl = ({ element, setQuestionTitle, setElementRemark, d
     setQuestionTitle(element.element.order, { text: element.title.text, remark: e.target.value })
   }
 
-  // удаление комментария
   const handleDeleteRemark = () => {
     setElementRemark(element.element.order, null)
     setRemarkInputVisible(false)
@@ -67,13 +65,13 @@ export const QuestionInputEl = ({ element, setQuestionTitle, setElementRemark, d
   return (
     <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
       {/* заголовок элемента */}
-      <TitleCreation>
+      <ElementTitleCreation>
         {icon}
         {title}
-      </TitleCreation>
+      </ElementTitleCreation>
 
       {/* вопрос */}
-      <QuestionCreation
+      <QuestionTitleCreation
         element={element}
         setQuestionTitle={setQuestionTitle}
         deleteElement={deleteElement}
