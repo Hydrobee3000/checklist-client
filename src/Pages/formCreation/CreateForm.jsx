@@ -16,11 +16,16 @@ import { QuestionInputEl } from './elements/QuestionInputEl'
 import { QuestionRadioEl } from './elements/QuestionRadioEl'
 import { QuestionSelectEl } from './elements/QuestionSelectEl'
 
+export const elTypes = {
+  title: 'title',
+  question: 'question',
+}
+
 //
 
 const CreateForm = () => {
   const [inputsValue, setInputsValue] = useState({ formsName: null, elements: [] })
-  console.log(inputsValue)
+  console.dir(inputsValue)
 
   const saveAnswersToState = (setter, key, value) => {
     setter((prevInputs) => ({
@@ -32,11 +37,13 @@ const CreateForm = () => {
   const onCreateBlockTitle = () => {
     const newBlock = {
       element: { type: 'title', order: inputsValue.elements.length + 1 },
-      isExist: true,
+      indexName: 'title',
       title: {
         text: null,
         remark: null,
       },
+      order: null,
+      isRequire: true,
     }
 
     setInputsValue((prevData) => ({
@@ -68,32 +75,16 @@ const CreateForm = () => {
   }
 
   // добавление заголовка
-  const setElementTitle = (order, value) => {
-    setElement(order, 'title', (element) => ({
-      ...element,
-      title: { ...element.title, text: value },
-    }))
-  }
-
-  // добавление комментария заголовка
-  const setElementRemark = (order, value) => {
-    setElement(order, 'title', (element) => ({
-      ...element,
-      title: { ...element.title, remark: value },
-    }))
-  }
-
-  // добавление заголовка вопроса
-  const setQuestionTitle = (order, value) => {
-    setElement(order, 'question', (element) => ({
+  const setElementTitle = (order, type, value) => {
+    setElement(order, type, (element) => ({
       ...element,
       title: value,
     }))
   }
 
-  // добавление комментария заголовка вопроса
-  const setQuestionRemark = (order, value) => {
-    setElement(order, 'question', (element) => ({
+  // добавление комментария заголовка
+  const setElementRemark = (order, type, value) => {
+    setElement(order, type, (element) => ({
       ...element,
       title: { ...element.title, remark: value },
     }))
@@ -289,8 +280,8 @@ const CreateForm = () => {
               <QuestionInputEl
                 key={question.element.order}
                 element={question}
-                setQuestionTitle={setQuestionTitle}
-                setElementRemark={setQuestionRemark}
+                setElementTitle={setElementTitle}
+                setElementRemark={setElementRemark}
                 deleteElement={deleteElement}
                 setElementOrder={setElementOrder}
               />
@@ -300,8 +291,8 @@ const CreateForm = () => {
                 inputsValue={inputsValue}
                 setInputsValue={setInputsValue}
                 element={question}
-                setQuestionTitle={setQuestionTitle}
-                setElementRemark={setQuestionRemark}
+                setElementTitle={setElementTitle}
+                setElementRemark={setElementRemark}
                 deleteElement={deleteElement}
                 setElementOrder={setElementOrder}
                 multiple={question.isMultipleAnswers}
@@ -312,8 +303,8 @@ const CreateForm = () => {
                 inputsValue={inputsValue}
                 setInputsValue={setInputsValue}
                 element={question}
-                setQuestionTitle={setQuestionTitle}
-                setElementRemark={setQuestionRemark}
+                setElementTitle={setElementTitle}
+                setElementRemark={setElementRemark}
                 deleteElement={deleteElement}
                 setElementOrder={setElementOrder}
                 multiple={question.isMultipleAnswers}
