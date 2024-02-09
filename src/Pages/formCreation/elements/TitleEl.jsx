@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
 import { LineOutlined } from '@ant-design/icons'
+import { elTypes } from '../CreateForm'
 import ElementTitleCreation from '../../../Components/FormsParts/CreationParts/ElementTitleCreation'
 import QuestionTitleCreation from '../../../Components/FormsParts/CreationParts/QuestionTitleCreation'
 
@@ -15,28 +15,6 @@ import QuestionTitleCreation from '../../../Components/FormsParts/CreationParts/
  */
 
 export const TitleEl = ({ element, setElementTitle, setElementRemark, deleteElement, setElementOrder }) => {
-  const [isRemarkInputVisible, setRemarkInputVisible] = useState(false)
-
-  // добавление комментария
-  const handleAddRemark = () => {
-    setRemarkInputVisible(true)
-  }
-
-  // изменение комментария
-  const handleChangeRemark = (e) => {
-    setElementRemark(element.element.order, e.target.value)
-  }
-
-  // удаление комментария
-  const handleDeleteRemark = () => {
-    setElementRemark(element.element.order, null)
-    setRemarkInputVisible(false)
-  }
-
-  const handleOrderChange = (value) => {
-    setElementOrder(element.element.order, value)
-  }
-
   return (
     <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
       {/* заголовок элемента */}
@@ -47,14 +25,12 @@ export const TitleEl = ({ element, setElementTitle, setElementRemark, deleteElem
 
       {/* вопрос */}
       <QuestionTitleCreation
+        type={elTypes.title}
         element={element}
-        setQuestionTitle={setElementTitle}
+        setElementTitle={setElementTitle}
+        setElementRemark={setElementRemark}
         deleteElement={deleteElement}
-        isRemarkInputVisible={isRemarkInputVisible}
-        handleAddRemark={handleAddRemark}
-        handleChangeRemark={handleChangeRemark}
-        handleDeleteRemark={handleDeleteRemark}
-        handleOrderChange={handleOrderChange}
+        setElementOrder={setElementOrder}
       />
     </div>
   )
