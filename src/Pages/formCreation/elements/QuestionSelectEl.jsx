@@ -1,39 +1,34 @@
-import React, { useState } from 'react'
-import { Button, Input, Tooltip, Select, Radio, Switch, Checkbox } from 'antd'
-import { CloseOutlined, DeleteOutlined, DeleteFilled, LineOutlined } from '@ant-design/icons'
+import { Button, Input, Tooltip, Select, Radio, Checkbox } from 'antd'
+import { CloseOutlined, UnorderedListOutlined } from '@ant-design/icons'
+import { elTypes } from '../CreateForm'
+import ElementTitleCreation from '../../../Components/FormsParts/CreationParts/ElementTitleCreation'
+import QuestionTitleCreation from '../../../Components/FormsParts/CreationParts/QuestionTitleCreation'
 
-const { Option } = Select
+/**
+ * Компонент для отображения вопроса с выбором одного или нескольких ответов из выпадающего списка.
+ *
+ * @param {Object} props.inputsValue - Значение ввода.
+ * @param {Function} props.setInputsValue - Функция для установки значения ввода.
+ * @param {Object} props.element - Элемент вопроса.
+ * @param {Function} props.setElementTitle - Функция для установки заголовка вопроса.
+ * @param {Function} props.setElementRemark - Функция для установки примечания элемента.
+ * @param {Function} props.deleteElement - Функция для удаления элемента.
+ * @param {Function} props.setElementOrder - Функция для установки порядка элемента.
+ * @param {boolean} [props.multiple=false] - Флаг, указывающий, поддерживает ли вопрос множественные ответы.
+ * @returns {JSX.Element} Компонент React.
+ */
 
 export const QuestionSelectEl = ({
   inputsValue,
   setInputsValue,
   element,
-  setQuestionTitle,
+  setElementTitle,
   setElementRemark,
   deleteElement,
   setElementOrder,
   multiple = false,
 }) => {
-  const [isRemarkInputVisible, setRemarkInputVisible] = useState(false)
   const radioAnswers = element.variants || []
-
-  const handleAddRemarkClick = () => {
-    setRemarkInputVisible(true)
-  }
-
-  const handleDeleteRemarkClick = () => {
-    setElementRemark(element.element.order, null)
-    setRemarkInputVisible(false)
-  }
-
-  const handleRemarkInputChange = (e) => {
-    setElementRemark(element.element.order, e.target.value)
-    setQuestionTitle(element.element.order, { text: element.title.text, remark: e.target.value })
-  }
-
-  const handleOrderChange = (value) => {
-    setElementOrder(element.element.order, value)
-  }
 
   const handleRadioAnswerChange = (index, e) => {
     const updatedRadioAnswers = [...inputsValue.elements[element.element.order - 1].variants]
@@ -88,50 +83,21 @@ export const QuestionSelectEl = ({
 
   return (
     <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
-      {/* <div style={{ marginBottom: '10px' }}> */}
-      <h5>{title}</h5>
-      {/* <Switch size='small' checkedChildren='1' unCheckedChildren='>1' /> */}
-      {/* </div> */}
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', width: '100%' }}>
-        <Select style={{ width: 70, marginRight: '5px' }} defaultValue={element.order} onChange={handleOrderChange}>
-          <Option value={1}>1.</Option>
-          <Option value={2}>2.</Option>
-        </Select>
-        <div style={{ flex: 1, marginRight: '10px' }}>
-          <Input
-            allowClear
-            placeholder='Введите название вопроса'
-            value={element.title.text}
-            onChange={(e) => setQuestionTitle(element.element.order, { ...element.title, text: e.target.value })}
-          />
-        </div>
-        <Tooltip title='Удалить вопрос'>
-          <Button type='text' danger icon={<DeleteFilled />} onClick={() => deleteElement(element.element.order)} />
-        </Tooltip>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginBottom: '8px' }}>
-        {!isRemarkInputVisible && (
-          <Tooltip title='Добавить комментарий'>
-            <Button style={{ marginBottom: '8px' }} className='ant-btn' size='small' onClick={handleAddRemarkClick}>
-              Добавить комментарий
-            </Button>
-          </Tooltip>
-        )}
-        {isRemarkInputVisible && (
-          <>
-            <Input
-              size='small'
-              style={{ marginRight: '10px', flex: 1 }}
-              placeholder='Введите комментарий'
-              onChange={handleRemarkInputChange}
-              allowClear
-            />
-            <Tooltip title='Удалить комментарий'>
-              <Button className='ant-btn' type='text' danger icon={<CloseOutlined />} onClick={handleDeleteRemarkClick} />
-            </Tooltip>
-          </>
-        )}
-      </div>
+      {/* заголовок элемента */}
+      <ElementTitleCreation>
+        <UnorderedListOutlined style={{ marginRight: '10px', marginBottom: '10px', opacity: 0.5 }} />
+        {title}
+      </ElementTitleCreation>
+
+      {/* вопрос */}
+      <QuestionTitleCreation
+        type={elTypes.question}
+        element={element}
+        setElementTitle={setElementTitle}
+        setElementRemark={setElementRemark}
+        deleteElement={deleteElement}
+        setElementOrder={setElementOrder}
+      />
 
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
         {radioAnswers.map((radioAnswer, index) => (
