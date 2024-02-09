@@ -1,45 +1,61 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Input, Tooltip, Select, Radio, Switch, Checkbox, Typography } from 'antd'
-import { CloseOutlined, DeleteOutlined, DeleteFilled } from '@ant-design/icons'
+import { Button, Input, Tooltip, Radio, Switch, Checkbox, Typography } from 'antd'
+import { CloseOutlined, CheckSquareOutlined, CheckCircleOutlined } from '@ant-design/icons'
+import { elTypes } from '../CreateForm'
+import ElementTitleCreation from '../../../Components/FormsParts/CreationParts/ElementTitleCreation'
+import QuestionTitleCreation from '../../../Components/FormsParts/CreationParts/QuestionTitleCreation'
 
-const { Option } = Select
+/**
+ * Компонент для отображения вопроса с выбором одного или нескольких ответов.
+ *
+ * @param {Object} props.inputsValue - Значение ввода.
+ * @param {Function} props.setInputsValue - Функция для установки значения ввода.
+ * @param {Object} props.element - Элемент вопроса.
+ * @param {Function} props.setElementTitle - Функция для установки заголовка вопроса.
+ * @param {Function} props.setElementRemark - Функция для установки примечания элемента.
+ * @param {Function} props.deleteElement - Функция для удаления элемента.
+ * @param {Function} props.setElementOrder - Функция для установки порядка элемента.
+ * @param {boolean} [props.multiple=false] - Флаг, указывающий, поддерживает ли вопрос множественные ответы.
+ * @returns {JSX.Element} Компонент React.
+ */
 
 export const QuestionRadioEl = ({
   inputsValue,
   setInputsValue,
   element,
-  setQuestionTitle,
+  setElementTitle,
   setElementRemark,
   deleteElement,
   setElementOrder,
   multiple = false,
 }) => {
-  const [isRemarkInputVisible, setRemarkInputVisible] = useState(false)
   const [isMultipleAnswers, setIsMultipleAnswers] = useState(multiple) // Добавлено состояние для хранения значения переключателя
 
   const radioAnswers = element.variants || []
 
-  const handleAddRemarkClick = () => {
-    setRemarkInputVisible(true)
-  }
+  let title = '' // текст вопроса
+  let icon = null // иконка вопроса
 
-  const handleDeleteRemarkClick = () => {
-    setElementRemark(element.element.order, null)
-    setRemarkInputVisible(false)
-  }
+  switch (isMultipleAnswers) {
+    case true:
+      title = 'Вопрос с множеством вариантов ответа'
+      icon = <CheckSquareOutlined style={{ marginRight: '10px', marginBottom: '10px', opacity: 0.5 }} />
+      break
 
-  const handleRemarkInputChange = (e) => {
-    setElementRemark(element.element.order, e.target.value)
-    setQuestionTitle(element.element.order, { text: element.title.text, remark: e.target.value })
-  }
+    case false:
+      title = 'Вопрос с одним вариантом ответа'
+      icon = <CheckCircleOutlined style={{ marginRight: '10px', marginBottom: '10px', opacity: 0.5 }} />
+      break
 
-  const handleOrderChange = (value) => {
-    setElementOrder(element.element.order, value)
+    default:
+      title = 'Вопрос с выбором варианта ответа'
+      break
   }
 
   const handleRadioAnswerChange = (index, e) => {
     const updatedRadioAnswers = [...inputsValue.elements[element.element.order - 1].variants]
     updatedRadioAnswers[index].value = e.target.value
+
     setInputsValue((prevData) => ({
       ...prevData,
       elements: prevData.elements.map((el, i) => {
@@ -105,60 +121,32 @@ export const QuestionRadioEl = ({
     updateIsMultipleAnswers()
   }, [isMultipleAnswers, setInputsValue, element.element.order])
 
-  let title = isMultipleAnswers ? 'Вопрос с множеством вариантов ответа' : 'Вопрос с одним вариантом ответа'
-
   return (
     <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
-      <h4>{title}</h4>
-      <div style={{ marginBottom: '10px' }}>
-        <Typography style={{ opacity: 0.3 }}>ответов</Typography>
-        <Switch
-          checked={isMultipleAnswers} // Привязываем переключатель к состоянию isMultipleAnswers
-          onChange={(checked) => setIsMultipleAnswers(checked)} // Обновляем состояние isMultipleAnswers при изменении переключателя
-          checkedChildren='1'
-          unCheckedChildren='>1'
-        />
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', width: '100%' }}>
-        <Select style={{ width: 70, marginRight: '5px' }} defaultValue={element.order} onChange={handleOrderChange}>
-          <Option value={1}>1.</Option>
-          <Option value={2}>2.</Option>
-        </Select>
-        <div style={{ flex: 1, marginRight: '10px' }}>
-          <Input
-            allowClear
-            placeholder='Введите название вопроса'
-            value={element.title.text}
-            onChange={(e) => setQuestionTitle(element.element.order, { ...element.title, text: e.target.value })}
+      {/* заголовок элемента */}
+      <ElementTitleCreation>
+        {icon}
+        {title}
+        <div style={{ marginBottom: '10px' }}>
+          <Typography style={{ opacity: 0.3 }}>ответов</Typography>
+          <Switch
+            checked={isMultipleAnswers} // Привязываем переключатель к состоянию isMultipleAnswers
+            onChange={(checked) => setIsMultipleAnswers(checked)} // Обновляем состояние isMultipleAnswers при изменении переключателя
+            checkedChildren='1'
+            unCheckedChildren='>1'
           />
         </div>
-        <Tooltip title='Удалить вопрос'>
-          <Button type='text' danger icon={<DeleteFilled />} onClick={() => deleteElement(element.element.order)} />
-        </Tooltip>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginBottom: '8px' }}>
-        {!isRemarkInputVisible && (
-          <Tooltip title='Добавить комментарий'>
-            <Button style={{ marginBottom: '8px' }} className='ant-btn' size='small' onClick={handleAddRemarkClick}>
-              Добавить комментарий
-            </Button>
-          </Tooltip>
-        )}
-        {isRemarkInputVisible && (
-          <>
-            <Input
-              size='small'
-              style={{ marginRight: '10px', flex: 1 }}
-              placeholder='Введите комментарий'
-              onChange={handleRemarkInputChange}
-              allowClear
-            />
-            <Tooltip title='Удалить комментарий'>
-              <Button className='ant-btn' type='text' danger icon={<CloseOutlined />} onClick={handleDeleteRemarkClick} />
-            </Tooltip>
-          </>
-        )}
-      </div>
+      </ElementTitleCreation>
+
+      {/* вопрос */}
+      <QuestionTitleCreation
+        type={elTypes.question}
+        element={element}
+        setElementTitle={setElementTitle}
+        setElementRemark={setElementRemark}
+        deleteElement={deleteElement}
+        setElementOrder={setElementOrder}
+      />
 
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
         {radioAnswers.map((radioAnswer, index) => (
