@@ -1,9 +1,9 @@
-import { OTHER } from '../../../constants/additionalIndexes' // (string) "Other"
-import { hasAtLeastOneChosenAdditionalAnswer } from '../../../utils/isChosenAdditionalAnswer' // выбран ли хотя бы один ответ на доп. вопрос
-import { Title, TitleRemark } from '../Titles/Title' // заголовок/подзаголовок вопроса
-import RadioQuestion from '../RadioQuestion'
+import { OTHER } from '../../../../constants/additionalIndexes' // (string) "Other"
+import { Title, TitleRemark } from '../../Titles/Title' // заголовок/подзаголовок вопроса
+import RadioQuestion from '../../Questions/RadioQuestion'
 import BehavioralBarriers from './BehavioralBarriers' // блок доп. ответа *Поведенческие барьеры*
 import RemarksOnDeviation from './RemarksOnDeviation' // блок доп. ответа *Замечания по отклонению*
+import { hasAtLeastOneChosenAdditionalAnswer } from '../../../../utils/isChosenAdditionalAnswer' // выбран ли хотя бы один ответ на доп. вопрос
 
 // вопрос, где при выборе ответа 'нет' - появляется доп. вопрос
 

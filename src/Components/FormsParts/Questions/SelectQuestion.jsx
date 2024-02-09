@@ -1,6 +1,6 @@
 import React from 'react'
-import { Title, TitleRemark } from './Titles/Title' // заголовок/подзаголовок вопроса
-import saveAnswersToState from '../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
+import { Title, TitleRemark } from '../Titles/Title' // заголовок/подзаголовок вопроса
+import saveAnswersToState from '../../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 
 // вопрос с выпадающим списком
 

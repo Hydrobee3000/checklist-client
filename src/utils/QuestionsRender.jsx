@@ -1,8 +1,8 @@
 import React from 'react'
-import InputQuestion from '../Components/FormsParts/InputQuestion'
-import RadioQuestion from '../Components/FormsParts/RadioQuestion'
-import WithAdditionalQuestion from '../Components/FormsParts/WithAdditionalQuestion/WithAdditionalQuestion'
-import RadioPlusInputQuestion from '../Components/FormsParts/RadioPlusInputQuestion'
+import InputQuestion from '../Components/FormsParts/Questions/InputQuestion'
+import RadioQuestion from '../Components/FormsParts/Questions/RadioQuestion'
+import RadioPlusInputQuestion from '../Components/FormsParts/Questions/RadioPlusInputQuestion'
+import WithAdditionalQuestion from '../Components/FormsParts/Questions/WithAdditionalQuestion/WithAdditionalQuestion'
 
 const QuestionRenderer = ({ questionData, setInputsValue, inputsValue, isReadonly, today }) => {
   const { component, type, isRequire, isMultipleAnswers } = questionData

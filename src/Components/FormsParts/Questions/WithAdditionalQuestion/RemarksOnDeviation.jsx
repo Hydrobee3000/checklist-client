@@ -1,7 +1,7 @@
 import React from 'react'
-import { OTHER } from '../../../constants/additionalIndexes' // индекс доп. ответа: 'Other'
-import { Title, TitleRemark } from '../Titles/Title' // заголовок/подзаголовок вопроса
-import saveAnswersToState from '../../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
+import { OTHER } from '../../../../constants/additionalIndexes' // индекс доп. ответа: 'Other'
+import { Title, TitleRemark } from '../../Titles/Title' // заголовок/подзаголовок вопроса
+import saveAnswersToState from '../../../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 
 // дополнительный блок "Замечания по отклонениям"
 

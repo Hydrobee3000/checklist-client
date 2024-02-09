@@ -1,7 +1,7 @@
 import React from 'react'
-import { setPlaceholder } from '../../utils/setPlaceholder' // настройка надписи внутри поля ввода
-import { Title, TitleRemark } from './Titles/Title' // заголовок/подзаголовок вопроса
-import saveAnswersToState from '../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
+import { setPlaceholder } from '../../../utils/setPlaceholder' // настройка надписи внутри поля ввода
+import { Title, TitleRemark } from '../Titles/Title' // заголовок/подзаголовок вопроса
+import saveAnswersToState from '../../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 
 // вопрос с полем ввода (текста/числа/даты) для ответа
 
