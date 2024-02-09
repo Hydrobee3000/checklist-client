@@ -1,21 +1,36 @@
 import React, { useState } from 'react'
-import { Button, Input, Tooltip } from 'antd'
-import { CloseOutlined, DeleteOutlined, DeleteFilled } from '@ant-design/icons'
+import { LineOutlined } from '@ant-design/icons'
+import TitleCreation from '../../../Components/FormsParts/FormCreation/TitleCreation'
+import QuestionCreation from '../../../Components/FormsParts/FormCreation/QuestionCreation'
+
+/**
+ * Компонент для отображения вопроса с ответом в виде поля ввода (date, text, number).
+ *
+ * @param {Object} props.element - Объект данных вопроса.
+ * @param {Function} props.setElementTitle - Функция для установки заголовка элемента.
+ * @param {Function} props.setElementRemark - Функция для установки комментария заголовка элемента.
+ * @param {Function} props.deleteElement - Функция для удаления элемента.
+ * @param {Function} props.setElementOrder - Функция для установки порядка элемента.
+ * @returns {JSX.Element} Компонент React.
+ */
 
 export const TitleEl = ({ element, setElementTitle, setElementRemark, deleteElement, setElementOrder }) => {
   const [isRemarkInputVisible, setRemarkInputVisible] = useState(false)
 
-  const handleAddRemarkClick = () => {
+  // добавление комментария
+  const handleAddRemark = () => {
     setRemarkInputVisible(true)
   }
 
-  const handleDeleteRemarkClick = () => {
-    setElementRemark(element.element.order, null)
-    setRemarkInputVisible(false)
+  // изменение комментария
+  const handleChangeRemark = (e) => {
+    setElementRemark(element.element.order, e.target.value)
   }
 
-  const handleRemarkInputChange = (e) => {
-    setElementRemark(element.element.order, e.target.value)
+  // удаление комментария
+  const handleDeleteRemark = () => {
+    setElementRemark(element.element.order, null)
+    setRemarkInputVisible(false)
   }
 
   const handleOrderChange = (value) => {
@@ -24,46 +39,23 @@ export const TitleEl = ({ element, setElementTitle, setElementRemark, deleteElem
 
   return (
     <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
-      <h5>Заголовок</h5>
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', width: '100%' }}>
-        {/* <Select style={{ width: 70, marginRight: '5px' }} defaultValue={element.order} onChange={handleOrderChange}>
-			  <Option value={1}>1.</Option>
-			  <Option value={2}>2.</Option>
-			</Select> */}
-        <div style={{ flex: 1, marginRight: '10px' }}>
-          <Input
-            placeholder='Введите заголовок'
-            value={element.title.text}
-            onChange={(e) => setElementTitle(element.element.order, e.target.value)}
-          />
-        </div>
-        <Tooltip title='Удалить заголовок'>
-          <Button type='text' danger icon={<DeleteFilled />} onClick={() => deleteElement(element.element.order)} />
-        </Tooltip>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-        {!isRemarkInputVisible && (
-          <Tooltip title='Добавить комментарий'>
-            <Button style={{ marginBottom: '8px' }} className='ant-btn' size='small' onClick={handleAddRemarkClick}>
-              Добавить комментарий
-            </Button>
-          </Tooltip>
-        )}
-        {isRemarkInputVisible && (
-          <>
-            <Input
-              size='small'
-              style={{ marginRight: '10px', width: '100%' }}
-              placeholder='Введите комментарий'
-              onChange={handleRemarkInputChange}
-              allowClear
-            />
-            <Tooltip title='Удалить комментарий'>
-              <Button className='ant-btn' type='text' danger icon={<CloseOutlined />} onClick={handleDeleteRemarkClick} />
-            </Tooltip>
-          </>
-        )}
-      </div>
+      {/* заголовок элемента */}
+      <TitleCreation>
+        <LineOutlined style={{ marginRight: '10px', opacity: 0.5 }} />
+        Заголовок
+      </TitleCreation>
+
+      {/* вопрос */}
+      <QuestionCreation
+        element={element}
+        setQuestionTitle={setElementTitle}
+        deleteElement={deleteElement}
+        isRemarkInputVisible={isRemarkInputVisible}
+        handleAddRemark={handleAddRemark}
+        handleChangeRemark={handleChangeRemark}
+        handleDeleteRemark={handleDeleteRemark}
+        handleOrderChange={handleOrderChange}
+      />
     </div>
   )
 }
