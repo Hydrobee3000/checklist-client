@@ -17,12 +17,13 @@ export const checklistsData = [
     elements: [
       {
         element: { type: 'title', order: 1 },
-        isExist: true,
+        indexName: 'date',
         title: {
           text: 'blockTitle 1',
           remark: 'blockRemark 1',
         },
         order: 1,
+        isRequire: true,
       },
       {
         element: { type: 'question', order: 2 },
@@ -59,7 +60,7 @@ export const checklistsData = [
         type: 'radio',
         component: questionsTypes.RADIO,
         isRequire: true,
-        isMultipleAnswers: true,
+        isMultipleAnswers: false,
         variants: [{ value: 'Смена 1' }, { value: 'Смена 2' }],
       },
       {
@@ -106,12 +107,13 @@ export const checklistsData = [
     elements: [
       {
         element: { type: 'title', order: 1 },
-        isExist: true,
+        indexName: 'title',
         title: {
           text: 'blockTitle 1222222',
           remark: 'blockRemark 1222222',
         },
-        order: 1,
+        order: null,
+        isRequire: true,
       },
       {
         element: { type: 'question', order: 2 },
