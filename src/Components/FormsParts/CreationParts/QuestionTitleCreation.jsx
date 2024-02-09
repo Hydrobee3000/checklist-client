@@ -1,37 +1,56 @@
 import { Select, Input, Button, Tooltip } from 'antd'
 import { CloseOutlined, DeleteFilled } from '@ant-design/icons'
+import { useState } from 'react'
 
 const { Option } = Select
 
 /**
  * Компонент для создания вопроса с текстом самого вопроса и комментария.
  *
- * @param {Object} props - Свойства компонента.
  * @param {Object} props.element - Объект данных вопроса.
  * @param {Function} props.setQuestionTitle - Функция для установки заголовка вопроса.
+ * @param {Function} props.setElementRemark - Функция для установки комментария заголовка вопроса.
  * @param {Function} props.deleteElement - Функция для удаления элемента.
- * @param {boolean} props.isRemarkInputVisible - Флаг видимости поля ввода комментария.
- * @param {Function} props.handleAddRemark - Функция для добавления комментария.
- * @param {Function} props.handleChangeRemark - Функция для изменения комментария.
- * @param {Function} props.handleDeleteRemark - Функция для удаления комментария.
- * @param {Function} props.handleOrderChange - Функция для изменения порядка вопроса.
+ * @param {Function} props.setElementOrder - Функция для установки порядка элемента.
  * @returns {JSX.Element} Компонент React.
  */
 
 const QuestionTitleCreation = ({
   element,
-  setQuestionTitle,
+  setElementTitle,
+  setElementRemark,
   deleteElement,
-  isRemarkInputVisible,
-  handleAddRemark,
-  handleChangeRemark,
-  handleDeleteRemark,
-  handleOrderChange,
+  setElementOrder,
+  type = 'question',
 }) => {
+  const [isRemarkInputVisible, setRemarkInputVisible] = useState(false) // отображение поля ввода комментария
+
+  // добавление комментария
+  const handleAddRemark = () => {
+    setRemarkInputVisible(true)
+  }
+
+  // изменение комментария
+  const handleChangeRemark = (e) => {
+    setElementRemark(element.element.order, type, e.target.value)
+    setElementTitle(element.element.order, type, { text: element.title.text, remark: e.target.value })
+  }
+
+  // удаление комментария
+  const handleDeleteRemark = () => {
+    setElementRemark(element.element.order, type, null)
+    setRemarkInputVisible(false)
+  }
+
+  // изменение порядка
+  const handleOrderChange = (value) => {
+    setElementOrder(element.element.order, value)
+  }
+
   return (
     <>
       {/* Вопрос */}
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', width: '100%' }}>
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '6px', width: '100%' }}>
         <Select style={{ width: 70, marginRight: '5px' }} defaultValue={element.order} onChange={handleOrderChange}>
           <Option value={1}>1.</Option>
           <Option value={2}>2.</Option>
@@ -42,7 +61,7 @@ const QuestionTitleCreation = ({
             allowClear
             placeholder='Введите название вопроса'
             value={element.title.text}
-            onChange={(e) => setQuestionTitle(element.element.order, { ...element.title, text: e.target.value })}
+            onChange={(e) => setElementTitle(element.element.order, type, { ...element.title, text: e.target.value })}
           />
         </div>
         <Tooltip title='Удалить вопрос'>
@@ -51,7 +70,7 @@ const QuestionTitleCreation = ({
       </div>
 
       {/* Комментарий */}
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginBottom: '10px' }}>
         {!isRemarkInputVisible && (
           <Tooltip title='Добавить комментарий'>
             <Button style={{ marginBottom: '8px' }} className='ant-btn' size='small' onClick={handleAddRemark}>
