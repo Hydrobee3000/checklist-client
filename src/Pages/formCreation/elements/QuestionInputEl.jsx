@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
 import { CalendarOutlined, FontSizeOutlined, FieldNumberOutlined, LineOutlined } from '@ant-design/icons'
+import { elTypes } from '../CreateForm'
 import ElementTitleCreation from '../../../Components/FormsParts/CreationParts/ElementTitleCreation'
 import QuestionTitleCreation from '../../../Components/FormsParts/CreationParts/QuestionTitleCreation'
 
@@ -7,36 +7,14 @@ import QuestionTitleCreation from '../../../Components/FormsParts/CreationParts/
  * Компонент для отображения вопроса с ответом в виде поля ввода (date, text, number).
  *
  * @param {Object} props.element - Объект данных вопроса.
- * @param {Function} props.setQuestionTitle - Функция для установки заголовка вопроса.
+ * @param {Function} props.setElementTitle - Функция для установки заголовка вопроса.
  * @param {Function} props.setElementRemark - Функция для установки комментария заголовка.
  * @param {Function} props.deleteElement - Функция для удаления элемента.
  * @param {Function} props.setElementOrder - Функция для установки порядка элемента.
  * @returns {JSX.Element} Компонент React.
  */
 
-export const QuestionInputEl = ({ element, setQuestionTitle, setElementRemark, deleteElement, setElementOrder }) => {
-  const [isRemarkInputVisible, setRemarkInputVisible] = useState(false) // отображение поля ввода комментария
-
-  // добавление комментария
-  const handleAddRemark = () => {
-    setRemarkInputVisible(true)
-  }
-
-  // изменение комментария
-  const handleChangeRemark = (e) => {
-    setElementRemark(element.element.order, e.target.value)
-    setQuestionTitle(element.element.order, { text: element.title.text, remark: e.target.value })
-  }
-
-  const handleDeleteRemark = () => {
-    setElementRemark(element.element.order, null)
-    setRemarkInputVisible(false)
-  }
-
-  const handleOrderChange = (value) => {
-    setElementOrder(element.element.order, value)
-  }
-
+export const QuestionInputEl = ({ element, setElementTitle, setElementRemark, deleteElement, setElementOrder }) => {
   let title = '' // текст вопроса
   let icon = null // иконка вопроса
 
@@ -58,7 +36,6 @@ export const QuestionInputEl = ({ element, setQuestionTitle, setElementRemark, d
 
     default:
       title = 'Вопрос с полем ввода'
-      icon = <LineOutlined style={{ marginRight: '10px', marginBottom: '10px', opacity: 0.5 }} />
       break
   }
 
@@ -72,14 +49,12 @@ export const QuestionInputEl = ({ element, setQuestionTitle, setElementRemark, d
 
       {/* вопрос */}
       <QuestionTitleCreation
+        type={elTypes.question}
         element={element}
-        setQuestionTitle={setQuestionTitle}
+        setElementTitle={setElementTitle}
+        setElementRemark={setElementRemark}
         deleteElement={deleteElement}
-        isRemarkInputVisible={isRemarkInputVisible}
-        handleAddRemark={handleAddRemark}
-        handleChangeRemark={handleChangeRemark}
-        handleDeleteRemark={handleDeleteRemark}
-        handleOrderChange={handleOrderChange}
+        setElementOrder={setElementOrder}
       />
     </div>
   )
