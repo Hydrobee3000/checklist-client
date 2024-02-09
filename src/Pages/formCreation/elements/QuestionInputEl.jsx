@@ -66,11 +66,13 @@ export const QuestionInputEl = ({ element, setQuestionTitle, setElementRemark, d
 
   return (
     <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
+      {/* заголовок элемента */}
       <TitleCreation>
         {icon}
         {title}
       </TitleCreation>
 
+      {/* вопрос */}
       <QuestionCreation
         element={element}
         setQuestionTitle={setQuestionTitle}
