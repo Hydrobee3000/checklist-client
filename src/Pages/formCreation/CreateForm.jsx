@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Input, Tooltip, Select, Typography } from 'antd'
 import Header from '../../Components/Header/Header'
 import {
-  CloseOutlined,
+  UnorderedListOutlined,
   CalendarOutlined,
   FontSizeOutlined,
   CheckCircleOutlined,
@@ -57,6 +57,7 @@ const CreateForm = () => {
     }))
   }
 
+  // добавление элемента в данные формы
   const setElement = (order, type, update) => {
     setInputsValue((prevData) => ({
       ...prevData,
@@ -66,7 +67,7 @@ const CreateForm = () => {
     }))
   }
 
-  // заголовок
+  // добавление заголовка
   const setElementTitle = (order, value) => {
     setElement(order, 'title', (element) => ({
       ...element,
@@ -74,7 +75,7 @@ const CreateForm = () => {
     }))
   }
 
-  // комментарий заголовка
+  // добавление комментария заголовка
   const setElementRemark = (order, value) => {
     setElement(order, 'title', (element) => ({
       ...element,
@@ -82,7 +83,7 @@ const CreateForm = () => {
     }))
   }
 
-  // заголовок вопроса
+  // добавление заголовка вопроса
   const setQuestionTitle = (order, value) => {
     setElement(order, 'question', (element) => ({
       ...element,
@@ -90,7 +91,7 @@ const CreateForm = () => {
     }))
   }
 
-  // комментарий заголовка вопроса
+  // добавление комментария заголовка вопроса
   const setQuestionRemark = (order, value) => {
     setElement(order, 'question', (element) => ({
       ...element,
@@ -107,7 +108,7 @@ const CreateForm = () => {
     }))
   }
 
-  // добавление вопроса с типом input (date, number, text)
+  // добавление вопроса с полем ввода (date, number, text)
   const onCreateBlockInputQuestion = (type) => {
     const newBlock = {
       element: { type: 'question', order: inputsValue.elements.length + 1 },
@@ -253,7 +254,7 @@ const CreateForm = () => {
             size='small'
             style={{ height: '30px', marginBottom: '8px', paddingRight: '95%' }}
             onClick={() => onCreateBlockSelectQuestion(false)}
-            icon={<CheckCircleOutlined style={{ paddingRight: '5px', opacity: 0.5 }} />}
+            icon={<UnorderedListOutlined style={{ paddingRight: '5px', opacity: 0.5 }} />}
           >
             Cписок
           </Button>
