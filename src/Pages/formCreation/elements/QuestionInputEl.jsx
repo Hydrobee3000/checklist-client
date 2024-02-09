@@ -1,94 +1,86 @@
 import React, { useState } from 'react'
-import { Button, Input, Tooltip, Select } from 'antd'
-import { CloseOutlined, DeleteOutlined, DeleteFilled } from '@ant-design/icons'
+import { CalendarOutlined, FontSizeOutlined, FieldNumberOutlined, LineOutlined } from '@ant-design/icons'
+import TitleCreation from '../../../Components/FormsParts/FormCreation/TitleCreation'
+import QuestionCreation from '../../../Components/FormsParts/FormCreation/QuestionCreation'
 
-const { Option } = Select
+/**
+ * Компонент для отображения вопроса с ответом в виде поля ввода (date, text, number).
+ *
+ * @param {Object} props - Свойства компонента.
+ * @param {Object} props.element - Объект данных вопроса.
+ * @param {Function} props.setQuestionTitle - Функция для установки заголовка вопроса.
+ * @param {Function} props.setElementRemark - Функция для установки комментария заголовка.
+ * @param {Function} props.deleteElement - Функция для удаления элемента.
+ * @param {Function} props.setElementOrder - Функция для установки порядка элемента.
+ * @returns {JSX.Element} Компонент React.
+ */
 
 export const QuestionInputEl = ({ element, setQuestionTitle, setElementRemark, deleteElement, setElementOrder }) => {
-  const [isRemarkInputVisible, setRemarkInputVisible] = useState(false)
+  const [isRemarkInputVisible, setRemarkInputVisible] = useState(false) // отображение поля ввода комментария
 
-  const handleAddRemarkClick = () => {
+  // добавление комментария
+  const handleAddRemark = () => {
     setRemarkInputVisible(true)
   }
 
-  const handleDeleteRemarkClick = () => {
-    setElementRemark(element.element.order, null)
-    setRemarkInputVisible(false)
+  // изменение комментария
+  const handleChangeRemark = (e) => {
+    setElementRemark(element.element.order, e.target.value)
+    setQuestionTitle(element.element.order, { text: element.title.text, remark: e.target.value })
   }
 
-  const handleRemarkInputChange = (e) => {
-    setElementRemark(element.element.order, e.target.value)
-
-    setQuestionTitle(element.element.order, { text: element.title.text, remark: e.target.value })
+  // удаление комментария
+  const handleDeleteRemark = () => {
+    setElementRemark(element.element.order, null)
+    setRemarkInputVisible(false)
   }
 
   const handleOrderChange = (value) => {
     setElementOrder(element.element.order, value)
   }
 
-  let title = ''
+  let title = '' // текст вопроса
+  let icon = null // иконка вопроса
 
   switch (element.type) {
     case 'date':
       title = 'Вопрос с выбором даты'
+      icon = <CalendarOutlined style={{ marginRight: '10px', marginBottom: '10px', opacity: 0.5 }} />
       break
 
     case 'text':
       title = 'Вопрос с текстовым ответом'
+      icon = <FontSizeOutlined style={{ marginRight: '10px', marginBottom: '10px', opacity: 0.5 }} />
       break
 
     case 'number':
       title = 'Вопрос с числовым ответом'
+      icon = <FieldNumberOutlined style={{ marginRight: '10px', marginBottom: '10px', opacity: 0.5 }} />
       break
 
     default:
-      title = 'Вопрос'
+      title = 'Вопрос с полем ввода'
+      icon = <LineOutlined style={{ marginRight: '10px', marginBottom: '10px', opacity: 0.5 }} />
       break
   }
 
   return (
     <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
-      <h5>{title}</h5>
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', width: '100%' }}>
-        <Select style={{ width: 70, marginRight: '5px' }} defaultValue={element.order} onChange={handleOrderChange}>
-          <Option value={1}>1.</Option>
-          <Option value={2}>2.</Option>
-        </Select>
-        <div style={{ flex: 1, marginRight: '10px' }}>
-          <Input
-            allowClear
-            placeholder='Введите название вопроса'
-            value={element.title.text}
-            onChange={(e) => setQuestionTitle(element.element.order, { ...element.title, text: e.target.value })}
-          />
-        </div>
-        <Tooltip title='Удалить вопрос'>
-          <Button type='text' danger icon={<DeleteFilled />} onClick={() => deleteElement(element.element.order)} />
-        </Tooltip>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-        {!isRemarkInputVisible && (
-          <Tooltip title='Добавить комментарий'>
-            <Button style={{ marginBottom: '8px' }} className='ant-btn' size='small' onClick={handleAddRemarkClick}>
-              Добавить комментарий
-            </Button>
-          </Tooltip>
-        )}
-        {isRemarkInputVisible && (
-          <>
-            <Input
-              size='small'
-              style={{ marginRight: '10px', flex: 1 }}
-              placeholder='Введите комментарий'
-              onChange={handleRemarkInputChange}
-              allowClear
-            />
-            <Tooltip title='Удалить комментарий'>
-              <Button className='ant-btn' type='text' danger icon={<CloseOutlined />} onClick={handleDeleteRemarkClick} />
-            </Tooltip>
-          </>
-        )}
-      </div>
+      <TitleCreation>
+        {icon}
+        {title}
+      </TitleCreation>
+
+      <QuestionCreation
+        element={element}
+        setQuestionTitle={setQuestionTitle}
+        deleteElement={deleteElement}
+        isRemarkInputVisible={isRemarkInputVisible}
+        handleAddRemark={handleAddRemark}
+        handleChangeRemark={handleChangeRemark}
+        handleDeleteRemark={handleDeleteRemark}
+        handleOrderChange={handleOrderChange}
+      />
     </div>
   )
 }
