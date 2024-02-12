@@ -60,6 +60,7 @@ export const FormRendererPage = ({ data }) => {
                 )}
 
                 {element?.element?.type === 'question' && (
+                  // отрисовка различных типов вопроса
                   <QuestionRenderer
                     questionData={element}
                     setInputsValue={setInputsValue}

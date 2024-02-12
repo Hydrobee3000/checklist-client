@@ -12,7 +12,13 @@ export const elTypes = {
   question: 'question',
 }
 
-//
+/**
+ * Страница для создания чеклиста.
+ *
+ * @component
+ *
+ * @returns {JSX.Element} Компонент React.
+ */
 
 const FormCreationPage = () => {
   const [inputsValue, setInputsValue] = useState({ formsName: null, elements: [] })
