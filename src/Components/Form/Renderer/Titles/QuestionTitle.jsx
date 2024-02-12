@@ -2,7 +2,7 @@ import React from 'react'
 
 // заголовок вопроса
 
-export const Title = ({ children, number = null, required = false }) => {
+export const QuestionTitle = ({ children, number = null, required = false }) => {
   return (
     <p className='app__content_title'>
       {/* номер вопроса отображается, только если его передали */}
@@ -15,7 +15,7 @@ export const Title = ({ children, number = null, required = false }) => {
 
 // комментарий вопроса
 
-export const TitleRemark = ({ children }) => {
+export const QuestionTitleRemark = ({ children }) => {
   let isMulticolumnQuestionComment = Array.isArray(children) // является ли переданное значение массивом
 
   /* если передан массив - отобразим каждый элемент на новой строке */

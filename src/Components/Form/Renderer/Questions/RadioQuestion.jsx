@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Title, TitleRemark } from '../Titles/Title' // заголовок/подзаголовок вопроса
-import saveAnswersToState from '../../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
+import { QuestionTitle, QuestionTitleRemark } from '../Titles/QuestionTitle' // заголовок/подзаголовок вопроса
+import saveAnswersToState from '../../../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 
 // вопрос с выбором одного ответа (или множесва ответов при переданном параметре multiple)
 
@@ -61,10 +61,10 @@ const RadioQuestion = ({
       {/* отобразим заголовок и комментарий - только если у вопроса нет дополнительных вопросов */}
       {withAddition === false ? (
         <>
-          <Title number={numbering} required={required}>
+          <QuestionTitle number={numbering} required={required}>
             {title}
-          </Title>
-          {title && <TitleRemark>{titleRemark}</TitleRemark>}
+          </QuestionTitle>
+          {title && <QuestionTitleRemark>{titleRemark}</QuestionTitleRemark>}
         </>
       ) : null}
 

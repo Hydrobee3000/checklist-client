@@ -1,6 +1,6 @@
 import React from 'react'
-import { Title, TitleRemark } from '../Titles/Title' // заголовок/подзаголовок вопроса
-import saveAnswersToState from '../../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
+import { QuestionTitle, QuestionTitleRemark } from '../Titles/QuestionTitle' // заголовок/подзаголовок вопроса
+import saveAnswersToState from '../../../../utils/saveAnswersToState' // функция, записывает в стейт(inputsValue) ответы на вопросы с их indexName
 
 // после выбора ответа - появляется инпут для ввода числа (номера локации)
 
@@ -24,10 +24,10 @@ const RadioPlusInputQuestion = ({
       {withAddition === false ? (
         // отобразим заголовок и комментарий - только если у вопроса нет дополнительных вопросов
         <>
-          <Title number={numbering} required={required}>
+          <QuestionTitle number={numbering} required={required}>
             {title}
-          </Title>
-          {title && <TitleRemark>{titleRemark}</TitleRemark>}
+          </QuestionTitle>
+          {title && <QuestionTitleRemark>{titleRemark}</QuestionTitleRemark>}
         </>
       ) : null}
 
@@ -65,9 +65,9 @@ const RadioPlusInputQuestion = ({
               {(mainAnswer === el.value && el.additionalInput === true) ||
               (mainAnswer?.startsWith(el.value) && el.additionalInput === true) ? (
                 <React.Fragment key={el.value}>
-                  <TitleRemark>{`Введите название ${el?.value}${
+                  <QuestionTitleRemark>{`Введите название ${el?.value}${
                     el?.nounDeclension ?? '' // добавляет окончание, если оно передано
-                  }`}</TitleRemark>
+                  }`}</QuestionTitleRemark>
                   <input
                     onChange={(e) => {
                       saveAnswersToState(

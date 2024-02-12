@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { checklistsData } from '../formRenderer/data_checklists'
-import Header from './../../Components/Header/Header' // шапка странциы
+import { checklistsData } from '../../constants/data_checklists'
+import Header from '../../Components/Header/Header' // шапка странциы
 import '../../App.css' // стили
 
 // данные страниц(роутов)

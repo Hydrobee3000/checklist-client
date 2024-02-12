@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Input, Tooltip, Radio, Switch, Checkbox, Typography } from 'antd'
 import { CloseOutlined, CheckSquareOutlined, CheckCircleOutlined, UnorderedListOutlined } from '@ant-design/icons'
-import { elTypes } from '../FormCreation'
-import ElementTitleCreation from '../../../Components/FormsParts/CreationParts/ElementTitleCreation'
-import QuestionTitleCreation from '../../../Components/FormsParts/CreationParts/QuestionTitleCreation'
-import { questionsTypes } from '../../formRenderer/data_checklists'
+import { elTypes } from '../../../../Pages/formCreation/FormCreationPage'
+import ElementName from '../Titles/ElementName'
+import QuestionTitle from '../Titles/QuestionTitleWithRemark'
+import { questionsTypes } from '../../../../constants/data_checklists'
 
 /**
  * Компонент для отображения вопроса с выбором одного или нескольких ответов.
@@ -20,7 +20,7 @@ import { questionsTypes } from '../../formRenderer/data_checklists'
  * @returns {JSX.Element} Компонент React.
  */
 
-export const QuestionRadioEl = ({
+export const RadioQuestionEl = ({
   inputsValue,
   setInputsValue,
   element,
@@ -130,7 +130,7 @@ export const QuestionRadioEl = ({
   return (
     <div key={element.element.order} style={{ display: 'flex', flexDirection: 'column', marginBottom: '30px', width: '100%' }}>
       {/* заголовок элемента */}
-      <ElementTitleCreation>
+      <ElementName>
         {icon}
         {title}
         <div style={{ marginBottom: '10px' }}>
@@ -142,10 +142,10 @@ export const QuestionRadioEl = ({
             unCheckedChildren='>1'
           />
         </div>
-      </ElementTitleCreation>
+      </ElementName>
 
       {/* вопрос */}
-      <QuestionTitleCreation
+      <QuestionTitle
         type={elTypes.question}
         element={element}
         setElementTitle={setElementTitle}

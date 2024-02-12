@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { appContext, setIsSuccess, setShowModal } from '../../store/reducers/appReducer'
-import { BlockTitle, BlockTitleComment } from '../../Components/FormsParts/Titles/BlockTitle' // заголовок блока вопросов
+import { BlockTitle, BlockTitleComment } from '../../Components/Form/Renderer/Titles/BlockTitle' // заголовок блока вопросов
 import Header from '../../Components/Header/Header'
-import SubmitButton from '../../Components/FormsParts/Buttons/SubmitButton' // кнопка отправки формы
-import InputQuestion from '../../Components/FormsParts/Questions/InputQuestion'
-import RadioQuestion from '../../Components/FormsParts/Questions/RadioQuestion'
-import RadioPlusInputQuestion from '../../Components/FormsParts/Questions/RadioPlusInputQuestion'
-import WithAdditionalQuestion from '../../Components/FormsParts/Questions/WithAdditionalQuestion/WithAdditionalQuestion'
+import SubmitButton from '../../Components/common/Buttons/SubmitButton' // кнопка отправки формы
+import InputQuestion from '../../Components/Form/Renderer/Questions/InputQuestion'
+import RadioQuestion from '../../Components/Form/Renderer/Questions/RadioQuestion'
+import RadioPlusInputQuestion from '../../Components/Form/Renderer/Questions/RadioPlusInputQuestion'
+import WithAdditionalQuestion from '../../Components/Form/Renderer/Questions/WithAdditionalQuestion'
 import defaultSetValue from '../../utils/defaultSetValue' // ф-я установки значения по-умолчанию в стейт
 import sendFormAsync from '../../utils/sendFormAsync' // ф-я отправки данных формы на сервер
 
@@ -18,7 +18,7 @@ import sendFormAsync from '../../utils/sendFormAsync' // ф-я отправки 
  * @returns {JSX.Element} Компонент React.
  */
 
-export const FormRenderer = ({ data }) => {
+export const FormRendererPage = ({ data }) => {
   const { dispatch } = useContext(appContext)
   const [inputsValue, setInputsValue] = useState([]) // все введенные в форму данные
 

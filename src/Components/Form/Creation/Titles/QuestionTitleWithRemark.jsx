@@ -15,14 +15,7 @@ const { Option } = Select
  * @returns {JSX.Element} Компонент React.
  */
 
-const QuestionTitleCreation = ({
-  element,
-  setElementTitle,
-  setElementRemark,
-  deleteElement,
-  setElementOrder,
-  type = 'question',
-}) => {
+const QuestionTitle = ({ element, setElementTitle, setElementRemark, deleteElement, setElementOrder, type = 'question' }) => {
   const [isRemarkInputVisible, setRemarkInputVisible] = useState(false) // отображение поля ввода комментария
 
   // добавление комментария
@@ -98,4 +91,4 @@ const QuestionTitleCreation = ({
   )
 }
 
-export default QuestionTitleCreation
+export default QuestionTitle

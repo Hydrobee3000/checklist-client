@@ -10,10 +10,10 @@ import {
   FieldNumberOutlined,
   LineOutlined,
 } from '@ant-design/icons'
-import { questionsTypes } from '../formRenderer/data_checklists'
-import { TitleEl } from './elements/TitleEl'
-import { QuestionInputEl } from './elements/QuestionInputEl'
-import { QuestionRadioEl } from './elements/QuestionRadioEl'
+import { questionsTypes } from '../../constants/data_checklists'
+import { TitleEl } from '../../Components/Form/Creation/Elements/TitleEl'
+import { InputQuestionEl } from '../../Components/Form/Creation/Elements/InputQuestionEl'
+import { RadioQuestionEl } from '../../Components/Form/Creation/Elements/RadioQuestionEl'
 
 export const elTypes = {
   title: 'title',
@@ -22,7 +22,7 @@ export const elTypes = {
 
 //
 
-const CreateForm = () => {
+const FormCreationPage = () => {
   const [inputsValue, setInputsValue] = useState({ formsName: null, elements: [] })
   console.dir(inputsValue)
 
@@ -276,7 +276,7 @@ const CreateForm = () => {
                 setElementOrder={setElementOrder}
               />
             ) : question.element.type === 'question' && question.component === questionsTypes.INPUT ? (
-              <QuestionInputEl
+              <InputQuestionEl
                 key={question.element.order}
                 element={question}
                 setElementTitle={setElementTitle}
@@ -286,7 +286,7 @@ const CreateForm = () => {
               />
             ) : question.element.type === 'question' &&
               (question.component === questionsTypes.RADIO || question.component === questionsTypes.SELECT) ? (
-              <QuestionRadioEl
+              <RadioQuestionEl
                 key={question.element.order}
                 inputsValue={inputsValue}
                 setInputsValue={setInputsValue}
@@ -305,4 +305,4 @@ const CreateForm = () => {
   )
 }
 
-export default CreateForm
+export default FormCreationPage
