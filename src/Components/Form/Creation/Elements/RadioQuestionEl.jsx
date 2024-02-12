@@ -3,7 +3,7 @@ import { Button, Input, Tooltip, Radio, Switch, Checkbox, Typography } from 'ant
 import { CloseOutlined, CheckSquareOutlined, CheckCircleOutlined, UnorderedListOutlined } from '@ant-design/icons'
 import { elTypes } from '../../../../Pages/formCreation/FormCreationPage'
 import ElementName from '../Titles/ElementName'
-import QuestionTitle from '../Titles/QuestionTitleWithRemark'
+import QuestionTitleWithRemark from '../Titles/QuestionTitleWithRemark'
 import { questionsTypes } from '../../../../constants/data_checklists'
 
 /**
@@ -145,7 +145,7 @@ export const RadioQuestionEl = ({
       </ElementName>
 
       {/* вопрос */}
-      <QuestionTitle
+      <QuestionTitleWithRemark
         type={elTypes.question}
         element={element}
         setElementTitle={setElementTitle}

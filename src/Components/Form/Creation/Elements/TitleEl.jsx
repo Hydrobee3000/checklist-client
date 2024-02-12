@@ -1,7 +1,7 @@
 import { LineOutlined } from '@ant-design/icons'
 import { elTypes } from '../../../../Pages/formCreation/FormCreationPage'
 import ElementName from '../Titles/ElementName'
-import QuestionTitle from '../Titles/QuestionTitleWithRemark'
+import QuestionTitleWithRemark from '../Titles/QuestionTitleWithRemark'
 
 /**
  * Компонент для отображения вопроса с ответом в виде поля ввода (date, text, number).
@@ -24,7 +24,7 @@ export const TitleEl = ({ element, setElementTitle, setElementRemark, deleteElem
       </ElementName>
 
       {/* вопрос */}
-      <QuestionTitle
+      <QuestionTitleWithRemark
         type={elTypes.title}
         element={element}
         setElementTitle={setElementTitle}

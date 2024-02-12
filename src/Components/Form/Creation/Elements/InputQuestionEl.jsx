@@ -1,7 +1,7 @@
 import { CalendarOutlined, FontSizeOutlined, FieldNumberOutlined, LineOutlined } from '@ant-design/icons'
 import { elTypes } from '../../../../Pages/formCreation/FormCreationPage'
 import ElementName from '../Titles/ElementName'
-import QuestionTitle from '../Titles/QuestionTitleWithRemark'
+import QuestionTitleWithRemark from '../Titles/QuestionTitleWithRemark'
 
 /**
  * Компонент для отображения вопроса с ответом в виде поля ввода (date, text, number).
@@ -48,7 +48,7 @@ export const InputQuestionEl = ({ element, setElementTitle, setElementRemark, de
       </ElementName>
 
       {/* вопрос */}
-      <QuestionTitle
+      <QuestionTitleWithRemark
         type={elTypes.question}
         element={element}
         setElementTitle={setElementTitle}

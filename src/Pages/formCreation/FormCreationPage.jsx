@@ -14,6 +14,7 @@ import { questionsTypes } from '../../constants/data_checklists'
 import { TitleEl } from '../../Components/Form/Creation/Elements/TitleEl'
 import { InputQuestionEl } from '../../Components/Form/Creation/Elements/InputQuestionEl'
 import { RadioQuestionEl } from '../../Components/Form/Creation/Elements/RadioQuestionEl'
+import CreationPanel from '../../Components/Form/Creation/CreationPanel'
 
 export const elTypes = {
   title: 'title',
@@ -167,88 +168,12 @@ const FormCreationPage = () => {
     <>
       <Header>Создание опроса</Header>
       <div className='app__content' style={{ display: 'flex', width: 'auto' }}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '190px',
-            border: '1px dashed black',
-            borderRadius: '5px',
-            padding: '10px',
-            marginRight: '25px',
-          }}
-        >
-          <Typography level={2} style={{ marginBottom: '10px', opacity: 0.5, fontStyle: 'italic' }}>
-            Добавить элемент
-          </Typography>
-          <Button
-            block
-            size='small'
-            style={{ height: '30px', paddingRight: '95%' }}
-            onClick={onCreateBlockTitle}
-            icon={<LineOutlined style={{ paddingRight: '5px', opacity: 0.5 }} />}
-          >
-            Заголовок
-          </Button>
-
-          <Typography level={2} style={{ marginBottom: '10px', marginTop: '30px', opacity: 0.5, fontStyle: 'italic' }}>
-            Добавить вопрос
-          </Typography>
-          <Button
-            block
-            size='small'
-            style={{ height: '30px', marginBottom: '8px', paddingRight: '95%' }}
-            onClick={() => onCreateBlockInputQuestion('date')}
-            icon={<CalendarOutlined style={{ paddingRight: '5px', opacity: 0.4 }} />}
-          >
-            Дата
-          </Button>
-          <Button
-            block
-            size='small'
-            style={{ height: '30px', marginBottom: '8px', paddingRight: '95%' }}
-            onClick={() => onCreateBlockInputQuestion('text')}
-            icon={<FontSizeOutlined style={{ paddingRight: '5px', opacity: 0.5 }} />}
-          >
-            Текст
-          </Button>
-          <Button
-            block
-            size='small'
-            style={{ height: '30px', marginBottom: '8px', paddingRight: '95%' }}
-            onClick={() => onCreateBlockInputQuestion('number')}
-            icon={<FieldNumberOutlined style={{ paddingRight: '5px', opacity: 0.5 }} />}
-          >
-            Число
-          </Button>
-          <Button
-            block
-            size='small'
-            style={{ height: '30px', marginBottom: '8px', paddingRight: '95%' }}
-            onClick={() => onCreateBlockRadioQuestion()}
-            icon={<CheckCircleOutlined style={{ paddingRight: '5px', opacity: 0.5 }} />}
-          >
-            Один ответ
-          </Button>
-          <Button
-            block
-            size='small'
-            style={{ height: '30px', marginBottom: '8px', paddingRight: '95%' }}
-            onClick={() => onCreateBlockRadioQuestion(true)}
-            icon={<CheckSquareOutlined style={{ paddingRight: '5px', opacity: 0.5 }} />}
-          >
-            Несколько ответов
-          </Button>
-          <Button
-            block
-            size='small'
-            style={{ height: '30px', marginBottom: '8px', paddingRight: '95%' }}
-            onClick={() => onCreateBlockSelectQuestion(false)}
-            icon={<UnorderedListOutlined style={{ paddingRight: '5px', opacity: 0.5 }} />}
-          >
-            Cписок
-          </Button>
-        </div>
+        <CreationPanel
+          onCreateBlockTitle={onCreateBlockTitle}
+          onCreateBlockInputQuestion={onCreateBlockInputQuestion}
+          onCreateBlockRadioQuestion={onCreateBlockRadioQuestion}
+          onCreateBlockSelectQuestion={onCreateBlockSelectQuestion}
+        />
 
         <form className='app__content_form' style={{ flex: 1 }}>
           <div style={{ marginRight: '10px', marginBottom: '40px' }}>
