@@ -3,7 +3,7 @@ export const questionsTypes = {
   RADIO: 'RADIO',
   RADIO_PLUS_INPUT: 'RADIO_PLUS_INPUT',
   RADIO_WITH_ADDITIONAL_INPUT: 'RADIO_WITH_ADDITIONAL_INPUT',
-  SELECT_SINGLE: 'SELECT_SINGLE',
+  SELECT: 'SELECT',
   SELECT_MULTIPLE: 'SELECT_MULTIPLE',
 }
 // isHasCorrectAnswer: false,
@@ -89,7 +89,7 @@ export const checklistsData = [
           remark: null,
         },
         type: 'select',
-        component: questionsTypes.SELECT_SINGLE,
+        component: questionsTypes.SELECT,
         isRequire: true,
         select: [
           { value: 'ЯГОК - БСС - БСС' },

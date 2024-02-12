@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Input, Tooltip, Radio, Switch, Checkbox, Typography } from 'antd'
-import { CloseOutlined, CheckSquareOutlined, CheckCircleOutlined } from '@ant-design/icons'
+import { CloseOutlined, CheckSquareOutlined, CheckCircleOutlined, UnorderedListOutlined } from '@ant-design/icons'
 import { elTypes } from '../CreateForm'
 import ElementTitleCreation from '../../../Components/FormsParts/CreationParts/ElementTitleCreation'
 import QuestionTitleCreation from '../../../Components/FormsParts/CreationParts/QuestionTitleCreation'
+import { questionsTypes } from '../../checklists/data_checklists'
 
 /**
  * Компонент для отображения вопроса с выбором одного или нескольких ответов.
@@ -36,20 +37,25 @@ export const QuestionRadioEl = ({
   let title = '' // текст вопроса
   let icon = null // иконка вопроса
 
-  switch (isMultipleAnswers) {
-    case true:
+  // вопрос - чекбокс
+  if (element.component === questionsTypes.RADIO) {
+    if (isMultipleAnswers) {
       title = 'Вопрос с множеством вариантов ответа'
       icon = <CheckSquareOutlined style={{ marginRight: '10px', marginBottom: '10px', opacity: 0.5 }} />
-      break
-
-    case false:
+    } else {
       title = 'Вопрос с одним вариантом ответа'
       icon = <CheckCircleOutlined style={{ marginRight: '10px', marginBottom: '10px', opacity: 0.5 }} />
-      break
-
-    default:
-      title = 'Вопрос с выбором варианта ответа'
-      break
+    }
+  }
+  // вопрос - селект
+  else if (element.component === questionsTypes.SELECT) {
+    if (isMultipleAnswers) {
+      title = 'Вопрос с множеством ответов из выпадающего списка'
+      icon = <UnorderedListOutlined style={{ marginRight: '10px', marginBottom: '10px', opacity: 0.5 }} />
+    } else {
+      title = 'Вопрос с одним ответом из выпадающего списка'
+      icon = <UnorderedListOutlined style={{ marginRight: '10px', marginBottom: '10px', opacity: 0.5 }} />
+    }
   }
 
   const handleRadioAnswerChange = (index, e) => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Input, Tooltip, Select, Typography } from 'antd'
+import { Button, Input, Typography } from 'antd'
 import Header from '../../Components/Header/Header'
 import {
   UnorderedListOutlined,
@@ -14,7 +14,6 @@ import { questionsTypes } from '../checklists/data_checklists'
 import { TitleEl } from './elements/TitleEl'
 import { QuestionInputEl } from './elements/QuestionInputEl'
 import { QuestionRadioEl } from './elements/QuestionRadioEl'
-import { QuestionSelectEl } from './elements/QuestionSelectEl'
 
 export const elTypes = {
   title: 'title',
@@ -152,7 +151,7 @@ const CreateForm = () => {
         remark: null,
       },
       type: 'select',
-      component: isMultiple ? questionsTypes.SELECT_MULTIPLE : questionsTypes.SELECT_SINGLE,
+      component: isMultiple ? questionsTypes.SELECT_MULTIPLE : questionsTypes.SELECT,
       isRequire: true,
       isMultipleAnswers: isMultiple,
       variants: [{ value: '' }, { value: '' }],
@@ -285,20 +284,9 @@ const CreateForm = () => {
                 deleteElement={deleteElement}
                 setElementOrder={setElementOrder}
               />
-            ) : question.element.type === 'question' && question.component === questionsTypes.RADIO ? (
+            ) : question.element.type === 'question' &&
+              (question.component === questionsTypes.RADIO || question.component === questionsTypes.SELECT) ? (
               <QuestionRadioEl
-                key={question.element.order}
-                inputsValue={inputsValue}
-                setInputsValue={setInputsValue}
-                element={question}
-                setElementTitle={setElementTitle}
-                setElementRemark={setElementRemark}
-                deleteElement={deleteElement}
-                setElementOrder={setElementOrder}
-                multiple={question.isMultipleAnswers}
-              />
-            ) : question.element.type === 'question' && question.component === questionsTypes.SELECT_SINGLE ? (
-              <QuestionSelectEl
                 key={question.element.order}
                 inputsValue={inputsValue}
                 setInputsValue={setInputsValue}
