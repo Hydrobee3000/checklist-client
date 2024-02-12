@@ -10,60 +10,15 @@ import WithAdditionalQuestion from '../../Components/FormsParts/Questions/WithAd
 import defaultSetValue from '../../utils/defaultSetValue' // ф-я установки значения по-умолчанию в стейт
 import sendFormAsync from '../../utils/sendFormAsync' // ф-я отправки данных формы на сервер
 
-const QuestionRenderer = ({ questionData, setInputsValue, inputsValue, isReadonly, today }) => {
-  const { component, type, isRequire, isMultipleAnswers } = questionData
+/**
+ * Компонент для отображения и отправки чеклиста.
+ *
+ * @param {Object} props.data - Данные чеклиста.
+ *
+ * @returns {JSX.Element} Компонент React.
+ */
 
-  switch (component) {
-    case 'INPUT':
-      return (
-        <InputQuestion
-          dataQuestion={questionData}
-          setInputsValue={setInputsValue}
-          defaultValue={type === 'date' ? today : undefined}
-          isReadonly={isReadonly}
-          required={isRequire}
-        />
-      )
-    case 'RADIO':
-      return (
-        <RadioQuestion
-          dataQuestion={questionData}
-          setInputsValue={setInputsValue}
-          inputsValue={inputsValue}
-          isReadonly={isReadonly}
-          required={isRequire}
-          multiple={isMultipleAnswers}
-          inputType={type}
-        />
-      )
-    case 'RADIO_PLUS_INPUT':
-      return (
-        <RadioPlusInputQuestion
-          dataQuestion={questionData}
-          setInputsValue={setInputsValue}
-          inputsValue={inputsValue}
-          isReadonly={isReadonly}
-          inputType={type}
-          required={isRequire}
-        />
-      )
-    case 'RADIO_WITH_ADDITIONAL_INPUT':
-      return (
-        <WithAdditionalQuestion
-          dataQuestion={questionData}
-          setInputsValue={setInputsValue}
-          inputsValue={inputsValue}
-          isReadonly={isReadonly}
-          required={isRequire}
-        />
-      )
-
-    default:
-      return null
-  }
-}
-
-const Checklist = ({ data }) => {
+export const Checklist = ({ data }) => {
   const { dispatch } = useContext(appContext)
   const [inputsValue, setInputsValue] = useState([]) // все введенные в форму данные
 
@@ -124,4 +79,71 @@ const Checklist = ({ data }) => {
   )
 }
 
-export default Checklist
+//
+
+//
+
+/**
+ * Компонент для рендеринга различных типов вопроса.
+ *
+ * @param {Object} props.questionData - Данные вопроса.
+ * @param {Function} props.setInputsValue - Функция для установки значения ввода.
+ * @param {Object} props.inputsValue - Значения ввода.
+ * @param {boolean} props.isReadonly - Флаг является ли компонент только для чтения.
+ * @param {Date} props.today - Текущая дата.
+ *
+ * @returns {JSX.Element} Компонент React.
+ */
+
+const QuestionRenderer = ({ questionData, setInputsValue, inputsValue, isReadonly, today }) => {
+  const { component, type, isRequire, isMultipleAnswers } = questionData
+
+  switch (component) {
+    case 'INPUT':
+      return (
+        <InputQuestion
+          dataQuestion={questionData}
+          setInputsValue={setInputsValue}
+          defaultValue={type === 'date' ? today : undefined}
+          isReadonly={isReadonly}
+          required={isRequire}
+        />
+      )
+    case 'RADIO':
+      return (
+        <RadioQuestion
+          dataQuestion={questionData}
+          setInputsValue={setInputsValue}
+          inputsValue={inputsValue}
+          isReadonly={isReadonly}
+          required={isRequire}
+          multiple={isMultipleAnswers}
+          inputType={type}
+        />
+      )
+    case 'RADIO_PLUS_INPUT':
+      return (
+        <RadioPlusInputQuestion
+          dataQuestion={questionData}
+          setInputsValue={setInputsValue}
+          inputsValue={inputsValue}
+          isReadonly={isReadonly}
+          inputType={type}
+          required={isRequire}
+        />
+      )
+    case 'RADIO_WITH_ADDITIONAL_INPUT':
+      return (
+        <WithAdditionalQuestion
+          dataQuestion={questionData}
+          setInputsValue={setInputsValue}
+          inputsValue={inputsValue}
+          isReadonly={isReadonly}
+          required={isRequire}
+        />
+      )
+
+    default:
+      return null
+  }
+}

@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 import { checklistsData } from '../Pages/checklists/data_checklists' // данные всех чеклистов
+import { Checklist } from '../Pages/checklists/Checklists'
 import MainPage from '../Pages/mainPage/MainPage' // главная страница с навигацией
 import AdminPage from '../Pages/admin/AdminPage' // панель администратора
-import Checklist from '../Pages/checklists/Checklists'
 import CreateForm from '../Pages/formCreation/CreateForm'
 
 // статические ммашруты для основных элементов
