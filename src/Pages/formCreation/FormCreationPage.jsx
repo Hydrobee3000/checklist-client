@@ -1,19 +1,10 @@
 import React, { useState } from 'react'
-import { Button, Input, Typography } from 'antd'
-import Header from '../../Components/Header/Header'
-import {
-  UnorderedListOutlined,
-  CalendarOutlined,
-  FontSizeOutlined,
-  CheckCircleOutlined,
-  CheckSquareOutlined,
-  FieldNumberOutlined,
-  LineOutlined,
-} from '@ant-design/icons'
-import { questionsTypes } from '../../constants/data_checklists'
+import { Input, Typography } from 'antd'
 import { TitleEl } from '../../Components/Form/Creation/Elements/TitleEl'
 import { InputQuestionEl } from '../../Components/Form/Creation/Elements/InputQuestionEl'
 import { RadioQuestionEl } from '../../Components/Form/Creation/Elements/RadioQuestionEl'
+import { questionsTypes } from '../../constants/data_checklists'
+import Header from '../../Components/Header/Header'
 import CreationPanel from '../../Components/Form/Creation/CreationPanel'
 
 export const elTypes = {
