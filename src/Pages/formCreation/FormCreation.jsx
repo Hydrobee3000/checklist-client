@@ -10,7 +10,7 @@ import {
   FieldNumberOutlined,
   LineOutlined,
 } from '@ant-design/icons'
-import { questionsTypes } from '../checklists/data_checklists'
+import { questionsTypes } from '../formRenderer/data_checklists'
 import { TitleEl } from './elements/TitleEl'
 import { QuestionInputEl } from './elements/QuestionInputEl'
 import { QuestionRadioEl } from './elements/QuestionRadioEl'

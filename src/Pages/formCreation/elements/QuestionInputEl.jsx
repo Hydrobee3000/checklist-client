@@ -1,5 +1,5 @@
 import { CalendarOutlined, FontSizeOutlined, FieldNumberOutlined, LineOutlined } from '@ant-design/icons'
-import { elTypes } from '../CreateForm'
+import { elTypes } from '../FormCreation'
 import ElementTitleCreation from '../../../Components/FormsParts/CreationParts/ElementTitleCreation'
 import QuestionTitleCreation from '../../../Components/FormsParts/CreationParts/QuestionTitleCreation'
 

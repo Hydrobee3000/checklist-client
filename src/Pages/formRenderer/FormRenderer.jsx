@@ -18,7 +18,7 @@ import sendFormAsync from '../../utils/sendFormAsync' // ф-я отправки 
  * @returns {JSX.Element} Компонент React.
  */
 
-export const Checklist = ({ data }) => {
+export const FormRenderer = ({ data }) => {
   const { dispatch } = useContext(appContext)
   const [inputsValue, setInputsValue] = useState([]) // все введенные в форму данные
 

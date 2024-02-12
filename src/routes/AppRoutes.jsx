@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom'
-import { checklistsData } from '../Pages/checklists/data_checklists' // данные всех чеклистов
-import { Checklist } from '../Pages/checklists/Checklists'
+import { checklistsData } from '../Pages/formRenderer/data_checklists' // данные всех чеклистов
+import { FormRenderer } from '../Pages/formRenderer/FormRenderer'
+import CreateForm from '../Pages/formCreation/FormCreation'
 import MainPage from '../Pages/mainPage/MainPage' // главная страница с навигацией
 import AdminPage from '../Pages/admin/AdminPage' // панель администратора
-import CreateForm from '../Pages/formCreation/CreateForm'
 
 // статические ммашруты для основных элементов
 const mainRoutes = [
@@ -16,7 +16,7 @@ const mainRoutes = [
 // динамические маршруты с отображением чеклистов
 const checklistRoutes = checklistsData.map((checklist) => ({
   path: `/${checklist.id}`,
-  component: <Checklist data={checklist} />,
+  component: <FormRenderer data={checklist} />,
 }))
 
 // маршруты всего приложения
