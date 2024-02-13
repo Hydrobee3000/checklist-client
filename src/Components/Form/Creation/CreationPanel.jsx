@@ -9,6 +9,16 @@ import {
   LineOutlined,
 } from '@ant-design/icons'
 
+/**
+ * Компонент для создания различных типов блоков.
+ *
+ * @param {Function} props.onCreateBlockTitle - Функция для создания блока заголовка.
+ * @param {Function} props.onCreateBlockInputQuestion - Функция для создания блока вопроса с полем ввода.
+ * @param {Function} props.onCreateBlockRadioQuestion - Функция для создания блока вопроса с выбором одного или нескольких ответов.
+ * @param {Function} props.onCreateBlockSelectQuestion - Функция для создания блока вопроса с выбором одного или нескольких ответов из выпадающего списка.
+ * @returns {JSX.Element} React компонент.
+ */
+
 const CreationPanel = ({
   onCreateBlockTitle,
   onCreateBlockInputQuestion,

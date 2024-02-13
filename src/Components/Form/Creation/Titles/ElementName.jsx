@@ -7,6 +7,7 @@ import { Typography } from 'antd'
  * @param {React.ReactNode} props.children - Дочерние элементы компонента.
  * @returns {JSX.Element} Компонент React.
  */
+
 const ElementName = ({ children }) => {
   return (
     <Typography level={2} style={{ marginBottom: '10px', fontWeight: 'bold' }}>

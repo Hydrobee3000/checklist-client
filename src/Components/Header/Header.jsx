@@ -5,23 +5,22 @@ import s from './Header.module.css'
 
 // 'шапка' всех страниц
 
+/**
+ * Компонент заголовка страницы.
+ *
+ * @param {boolean} [props.mainPage=false] - Флаг, указывающий, является ли страница главной.
+ * @param {*} props.children - Дочерние элементы заголовка.
+ * @returns {JSX.Element} React компонент.
+ */
+
 const Header = ({ children, mainPage = false }) => {
-  const buildDate = process.env.REACT_APP_BUILD_DATE  // получаем дату сборки 
+  const buildDate = process.env.REACT_APP_BUILD_DATE // получаем дату сборки
 
   return (
     <>
-      <div
-        className={
-          mainPage
-            ? `${s.container__header} + ${s.main_page_color}`
-            : `${s.container__header}`
-        }>
+      <div className={mainPage ? `${s.container__header} + ${s.main_page_color}` : `${s.container__header}`}>
         <div
-          className={
-            mainPage
-              ? `${s.header__content} + ${s.header__content_main_page}`
-              : `${s.header__content}`
-          }
+          className={mainPage ? `${s.header__content} + ${s.header__content_main_page}` : `${s.header__content}`}
           title='Вернуться на главную' // tooltip
         >
           {/* кнопка 'домой' отображается на всех страницах, кроме главной */}
@@ -29,7 +28,7 @@ const Header = ({ children, mainPage = false }) => {
           <h1 className={s.header__title}>{children}</h1>
         </div>
         <Link className={s.header__version} to='/adm'>
-          {buildDate}              {/* $((Build.BuildNumber)) */}
+          {buildDate} {/* $((Build.BuildNumber)) */}
         </Link>
       </div>
       <SyncNotice />
