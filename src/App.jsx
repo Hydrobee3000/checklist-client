@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import AppRoutes from './routes/AppRoutes' // роуты приложения
 import Modals from './Components/Modals/Modals' // модальные окна приложения
 import {
@@ -15,11 +15,34 @@ import {
   setShowModalReplay,
   setStoredRecordsNumber,
 } from './store/reducers/appReducer'
+import { checkAPI } from './Api/Api'
 
 //
 
 const App = () => {
   const [state, dispatch] = useReducer(appReducer, initialState)
+
+  const [isFetching, setIsFetching] = useState(false) // происходит ли запрос
+  const [isSuccess, setIsSuccess] = useState(false) // успешен ли запрос
+  const [checklistsData, setСhecklistsData] = useState(null)
+
+  useEffect(() => {
+    setIsFetching(true)
+
+    checkAPI
+      .getTemplates() // отправка данных на сервер
+      .then((res) => {
+        setСhecklistsData(res.data)
+        setIsSuccess(true)
+      })
+      .catch((error) => {
+        setIsSuccess(false)
+        console.error(error)
+      })
+      .finally(() => {
+        setIsFetching(false)
+      })
+  }, [])
 
   //   useEffect(async () => {
   //     const url = "https://kadp-web-srv01.severstal.severstalgroup.com/dp/api/dp1/Param/List?id=18";
@@ -47,20 +70,24 @@ const App = () => {
     dispatch(setStoredRecordsNumber(event.data.numberOfStoredRecords))
   }
 
-  return (
-    <appContext.Provider value={{ state, dispatch }}>
-      <div className='app'>
-        <Modals />
-        <AppRoutes />
+  if (checklistsData || (isFetching === false && isSuccess === true)) {
+    return (
+      <appContext.Provider value={{ state, dispatch }}>
+        <div className='app'>
+          <Modals />
+          <AppRoutes checklistsData={checklistsData} />
 
-        {/* <SyncNotice
+          {/* <SyncNotice
         storedRecordsNumber={storedRecordsNumber}
         isReplayFetching={isReplayFetching}
         setIsReplayFetching={setIsReplayFetching}
       /> */}
-      </div>
-    </appContext.Provider>
-  )
+        </div>
+      </appContext.Provider>
+    )
+  }
+
+  return <p>подождите</p>
 }
 
 export default App

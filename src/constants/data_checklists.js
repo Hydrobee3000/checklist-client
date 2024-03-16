@@ -6,6 +6,7 @@ export const questionsTypes = {
   SELECT: 'SELECT',
   SELECT_MULTIPLE: 'SELECT_MULTIPLE',
 }
+
 // isHasCorrectAnswer: false,
 // radio: [{isCorrect: false, title: 'Название', value: 'Смена 2', additionalInput: false }],
 
@@ -168,6 +169,48 @@ export const checklistsData = [
           { value: 'PAUS 227', additionalInput: true },
           { value: 'bla', additionalInput: true },
         ],
+      },
+    ],
+  },
+  {
+    formsName: 'Новая форма',
+    id: 12225,
+    startTime: null,
+    elements: [
+      {
+        element: { type: 'title', order: 1 },
+        indexName: 'title',
+        isRequire: true,
+        order: null,
+        title: { text: 'Я заголовок', remark: 'Я комментарий заголовка' },
+      },
+
+      {
+        component: 'INPUT',
+        element: { type: 'question', order: 2 },
+        indexName: 'date',
+        isRequire: true,
+        order: null,
+        title: { text: '1. Я вопрос с датой', remark: 'Я комментарий вопроса с датой' },
+        type: 'date',
+      },
+      {
+        component: 'INPUT',
+        element: { type: 'question', order: 3 },
+        indexName: 'text',
+        isRequire: true,
+        order: null,
+        title: { text: '2. Я вопрос с текстовым ответом', remark: 'Я  комментарий вопроса с текстовым ответом' },
+        type: 'text',
+      },
+      {
+        component: 'INPUT',
+        element: { type: 'question', order: 4 },
+        indexName: 'number',
+        isRequire: true,
+        order: null,
+        title: { text: '3. Я вопрос с числовым ответом', remark: 'Я  комментарий вопроса с числовым ответом' },
+        type: 'number',
       },
     ],
   },

@@ -14,7 +14,6 @@ import sendFormAsync from '../../utils/sendFormAsync' // ф-я отправки 
  * Компонент для отображения и отправки чеклиста.
  *
  * @param {Object} props.data - Данные чеклиста.
- *
  * @returns {JSX.Element} Компонент React.
  */
 

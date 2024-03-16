@@ -34,7 +34,7 @@
   font-weight: bold;
   padding-top: 0 !important;
   margin-top: 20px;
-  margin-bottom: 0.8em;
+  /* margin-bottom: 0.8em; */
 }
 .app__title_dop {
   display: flex;

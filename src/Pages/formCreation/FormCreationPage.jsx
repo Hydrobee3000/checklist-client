@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
-import { Input, Typography } from 'antd'
+import React, { useContext, useState } from 'react'
+import { Button, Input, Typography } from 'antd'
 import { TitleEl } from '../../Components/Form/Creation/Elements/TitleEl'
 import { InputQuestionEl } from '../../Components/Form/Creation/Elements/InputQuestionEl'
 import { RadioQuestionEl } from '../../Components/Form/Creation/Elements/RadioQuestionEl'
 import { questionsTypes } from '../../constants/data_checklists'
 import Header from '../../Components/Header/Header'
 import CreationPanel from '../../Components/Form/Creation/CreationPanel'
+import SubmitButton from '../../Components/common/Buttons/SubmitButton'
+import { appContext, setIsSuccess, setShowModal } from '../../store/reducers/appReducer'
+import sendTemplateAsync from '../../utils/sendTemplateAsync'
 
 export const elTypes = {
   title: 'title',
@@ -21,8 +24,13 @@ export const elTypes = {
  */
 
 const FormCreationPage = () => {
+  const { dispatch } = useContext(appContext)
+
   const [inputsValue, setInputsValue] = useState({ formsName: null, elements: [] })
-  console.dir(inputsValue)
+
+  const [isSubmit, setIsSubmit] = useState(false) // отправлена ли форма (блокирование кнопки отправки)
+  const [isFetching, setIsFetching] = useState(false) // происходит ли запрос
+  const [isReadonly, setIsReadonly] = useState(false) // включен ли режим чтения (после отправки формы)
 
   const saveAnswersToState = (setter, key, value) => {
     setter((prevInputs) => ({
@@ -103,7 +111,6 @@ const FormCreationPage = () => {
       indexName: type,
       order: null,
       title: '',
-      titleRemark: null,
       type: type,
       component: questionsTypes.INPUT,
       isRequire: true,
@@ -161,6 +168,17 @@ const FormCreationPage = () => {
     }))
   }
 
+  // отправка формы
+  const onSubmit = async (e) => {
+    e.preventDefault()
+
+    const dispatchIsSuccess = (value) => dispatch(setIsSuccess(value))
+    const dispatchShowModal = (value) => dispatch(setShowModal(value))
+
+    // отправка на сервер + информация для service-worker
+    await sendTemplateAsync(inputsValue, setIsFetching, setIsSubmit, setIsReadonly, dispatchIsSuccess, dispatchShowModal)
+  }
+
   return (
     <>
       <Header>Создание опроса</Header>
@@ -172,7 +190,7 @@ const FormCreationPage = () => {
           onCreateBlockSelectQuestion={onCreateBlockSelectQuestion}
         />
 
-        <form className='app__content_form' style={{ flex: 1 }}>
+        <form onSubmit={onSubmit} className='app__content_form' style={{ flex: 1 }}>
           <div style={{ marginRight: '10px', marginBottom: '40px' }}>
             <Typography level={2} style={{ marginBottom: '10px', fontWeight: 'bold' }}>
               Название формы
@@ -221,6 +239,8 @@ const FormCreationPage = () => {
               />
             ) : null
           )}
+
+          <SubmitButton isSubmit={isSubmit} isFetching={isFetching} isCreation />
         </form>
       </div>
     </>

@@ -1,9 +1,9 @@
 /* компонент кнопки формы */
 
-const SubmitButton = ({ isSubmit, isFetching }) => {
+const SubmitButton = ({ isSubmit, isFetching, isCreation = false }) => {
   // если форма не отправлена или в процессе отправления
 
-  if (!isSubmit || (isSubmit && isFetching)) {
+  if (!isSubmit || (isSubmit && isFetching) || isCreation === true) {
     return <SendButton isSubmit={isSubmit} isFetching={isFetching} />
   }
   // если форма отправлена и браузер поддерживает background sync
@@ -41,11 +41,7 @@ const RefreshButton = ({ isFetching, content = 'Заполнить новый ч
   }
 
   return (
-    <button
-      type='button'
-      disabled={isFetching}
-      onClick={refreshPage}
-      className='app__refresh_btn'>
+    <button type='button' disabled={isFetching} onClick={refreshPage} className='app__refresh_btn'>
       {content}
     </button>
   )
